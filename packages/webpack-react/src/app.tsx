@@ -1,11 +1,17 @@
 import { FC } from "react";
+import RemQrCode from './rem-transform-page/qr-code';
+import VwQrCode from './vw-transform-page/qr-code';
+
 import "./assets/index.less";
 import "./assets/global.less";
 
 const App:FC = ()=> {
   return (
     <div className="app-container">
-      <h1 className="title">很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</h1>
+      {/* vw适配方案 */}
+      <VwQrCode/>
+      {/* rem适配方案 */}
+      {/* <RemQrCode/> */}
     </div>
   );
 }

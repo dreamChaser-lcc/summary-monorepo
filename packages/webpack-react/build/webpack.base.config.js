@@ -8,6 +8,7 @@ module.exports = {
   output:{
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].[contenthash].chunk.js',
+    assetModuleFilename: 'images/[hash][ext][query]', // 资源文件的输出路径
     clean:true,
   },
   module:{
@@ -32,10 +33,26 @@ module.exports = {
         exclude: /node_modules/,
         use: 'ts-loader',
       },
+      // 代替webpack4的file-loader
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type:'asset/resource',
+        generator: {
+          filename: 'static/[hash][ext][query]',// 单独定义输出路径和output.assetModuleFilename一样
+        }
+      },
+      // 还可以将图片变成base64格式，嵌入内嵌标签src
+      // {
+      //   test: /\.png/,
+      //   type: 'asset/inline'
+      // },
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'], // 配置文件后缀名,在引入时可以省略掉
+    alias: {
+      "@": path.resolve(__dirname, '../src'),
+    },
   },
   devServer: {
     // static: {
