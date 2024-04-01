@@ -1,0 +1,42 @@
+body,html{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #e0e8f6;
+    height: 100%;
+    width: 100%;
+}
+.root-container{
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 1280px; /* px */
+    min-width: 640px;
+    height: 100%;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+// .root-container {
+//     /* px-to-viewport-ignore-next */
+//     max-width: 640px;
+//     /* px-to-viewport-ignore-next */
+//     min-width: 320px;
+// }
+
+// 适配不同dpr情况下，限制PC端的宽度
+[data-dpr="1"] .root-container {
+    max-width: 640px;
+    min-width: 320px;
+}
+  
+[data-dpr="2"] .root-container {
+    max-width: 1280px;
+    min-width: 640px;
+}
+
+[data-dpr="3"] .root-container {
+    max-width: 1920px;
+    min-width: 960px;
+}
