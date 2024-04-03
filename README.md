@@ -15,3 +15,19 @@ packages:
   # exclude packages that are inside test directories
   - '!**/test/**'
 ```
+
+## 添加commitlint提交规范
+在根目录下安装依赖 -w 描述
+```bash
+# 1.安装commitlint相关依赖，以及git husky
+pnpm add -w @commitlint/config-conventional @commitlint/cli husky 
+
+# 2.输出commitlint.config.js配置文件(命令行输出文件，容易出现语法错误，还是手动创建commitlint.config.js)
+echo "module.exports = {extends: ['@commitlint/config-conventional']};" > commitlint.config.js
+
+# 3.初始化husky
+husky init
+
+# 4.添加git hooks钩子文件，在.husky/commit-msg中添加内容,会执行commitlint.config.js中的配置
+npx --no -- commitlint --edit $1
+```

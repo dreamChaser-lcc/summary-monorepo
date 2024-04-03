@@ -9,9 +9,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack-react:dev":"pnpm run -C packages/webpack-react dev",
+    "webpack-react:dev": "pnpm run -C packages/webpack-react dev",
     "dev": "pnpm run -r -w dev --filter webpack-react",
-    "all-dev": "pnpm run dev --filter packages/*"
+    "all-dev": "pnpm run dev --filter packages/*",
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "workspaces": {
     "packages": [
@@ -22,6 +23,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/types": "^19.0.3",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "husky": "^9.0.11",
     "typescript": "^5.2.2"
   }
 }
