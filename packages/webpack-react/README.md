@@ -63,3 +63,132 @@ npm install -g browserslist
 npx browserslist
 ```
 文档:[browserslist](https://github.com/browserslist/browserslist)
+
+## 移动端适配方案
+主要有三大类，
+- 使用相对单位的方式等比缩放的缩放还原设计稿（rem,vw）
+- 媒体查询适配，预设多中屏幕尺寸的样式（维护较难，成本大）
+- flex、栅格布局方式，等自适应方式（容易导致样式和设计稿存在差异）
+
+### 等比缩放rem方案
+原理：rem是相对于html中font-size的单位，如html中的font-size默认是16px,那么1rem = 16px;
+#### 如何适配?
+经典库flexible, 源码地址：https://cdn.jsdelivr.net/npm/lib-flexible@0.3.2/flexible.js
+主要做的事情：根据屏幕宽度(会受到屏幕缩放的营销)，计算出rem值，设置给html的font-size属性
+```js
+// flexible 源码改变html fontSize
+function refreshRem(){
+  var width = docEl.getBoundingClientRect().width;
+  if (width / dpr > 540) {
+      width = 540 * dpr;
+  }
+  var rem = width / 10;
+  docEl.style.fontSize = rem + 'px';
+  flexible.rem = win.rem = rem;
+}
+/**
+ * 上面的源码中，docEl.getBoundingClientRect().width表示的是源码宽度,会受到屏幕缩放(viewport meta标签)的影响
+ * <meta name="viewport" content="initial-scale=0.5,maximum-scale=0.5,minimum-scale=0.5,user-scalable=no">
+ * 上面标签添加之后 docEl.getBoundingClientRect().width会比没有添加*2，相关知识要查看viewport的文档
+ */
+if (!dpr && !scale) {
+    var isAndroid = win.navigator.appVersion.match(/android/gi);
+    var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+    var devicePixelRatio = win.devicePixelRatio;
+    if (isIPhone) {
+        // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+        if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+            dpr = 3;
+        } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)){
+            dpr = 2;
+        } else {
+            dpr = 1;
+        }
+    } else {
+        // 其他设备下，仍旧使用1倍的方案
+        dpr = 1;
+    }
+    scale = 1 / dpr;
+}
+var metaEl = doc.querySelector('meta[name="viewport"]');
+if (!metaEl) {
+    metaEl = doc.createElement('meta');
+    metaEl.setAttribute('name', 'viewport');
+    metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+    if (docEl.firstElementChild) {
+        docEl.firstElementChild.appendChild(metaEl);
+    } else {
+        var wrap = doc.createElement('div');
+        wrap.appendChild(metaEl);
+        doc.write(wrap.innerHTML);
+    }
+}
+```
+#### 如何实际
+1. html 文件添加脚本 `<script src="https://cdn.jsdelivr.net/npm/lib-flexible@0.3.2/flexible.min.js"></script>`
+2. 通过postcss-pxtoremh或postcss-px2rem插件转换px单位为rem
+3. 兼容PC或者平板方案，设计最大屏幕宽度 640或1280，避免文档宽度过大，导致排版混乱
+
+#### 为什么可以很好的还原设计稿
+1. 设计稿和屏幕宽度都划分了十份，75px相当于设计稿中基本单位，rem是在移动端中基本单位，等比计算，就能等比例的去还原设计稿
+2. 移动端设计稿一般都是750px，所以rem = 750 / 10 = 75px
+3. 当屏幕宽度为375px时，rem = 375 / 10 = 37.5px
+4. 例如100px在设计稿占比 100/750 = x/375,那么这个100px在375px屏幕下，100/75px = x/1rem, x=100/75*1rem=1.33333rem 
+5. 375是动态的，不同机型屏幕宽度不同，所以根据rem作为中间衡量单位
+
+#### 有什么不足或问题？
+- 需要额外引入js
+- 需要缩放meta viewport,可能会留下隐患
+- 系统字体大小会影响rem的计算,比如微信中的老人版字体也会导致font-size改变，导致rem计算错误
+
+### 等比缩放vw方案
+相对于rem方案，兼容性较差，不支持ie8及以下的版本，但大部分主流浏览器都会支持。
+
+#### 原理
+1vw等于屏幕比例的1%,设计稿可以分成100份，即 100/750 = 1vw,vw是动态的，所以也可以等比缩放
+
+#### 如何适配？
+ 添加 postcss-px-to-viewport 插件自动配置设计稿即可
+
+#### 兼容vant设计稿
+- 兼容vant设计稿375，可以通过exclude 排除 /node_modules/vant/lib/,
+- 或者通过文件导入动态修改，相关链接https://zhuanlan.zhihu.com/p/366664788
+
+#### 有什么不足？
+1. 兼容性相对于rem较差，但目前现代浏览器大部分都支持
+2. 不能很好适配平板或者PC, 因为PC宽高和移动端的高度相差较大,导致1vw很大,必然会导致比例过大, 仅适用于移动端
+
+## webpack sourceMap详解
+相关文章：https://www.cnblogs.com/yaopengfei/p/17192040.html
+
+webpack配置：https://webpack.docschina.org/configuration/devtool/
+
+正则组合公式：[inline-|hidden-|eval-][nosources-][cheap-[module-]]source-map
+
+cheap: 错误信息，只会映射到行不会映射到列，比较低开销，较高效
+
+module: sourceMap是未编译的代码，即react或vue代码，否则是已经编译后的js文件，较慢
+
+避免在生产中使用 inline-*** 和 eval-***，因为它们会增加 bundle 体积大小，并降低整体性能。
+
+结论：
+开发环境： cheap-source-map 或者 cheap-module-source-map 
+生产环境： source-map 或者 false
+
+```js
+// webpack.config.js
+{
+  devtool: 'source-map'
+}
+```
+## webpack 热模块更新
+
+```js
+// webpack.config.js
+{
+  devServer: {
+    hot: true, // webpack5+默认内置，其他版本需要HotModuleReplacementPlugin
+  },
+}
+```
+在React应用中可以使用react-hot-loader,实现组件级别的热模块更新，webpack仅支持模块级别的更新，不够精细
