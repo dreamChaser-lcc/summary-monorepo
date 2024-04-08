@@ -5,6 +5,7 @@
   "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:build": "npx serve ./dist",
     "start": "npm run dev",
     "build": "webpack --config ./build/webpack.prod.config.js",
     "dev": "webpack server --config ./build/webpack.dev.config.js"
@@ -25,7 +26,7 @@
     "html-webpack-plugin": "^5.6.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "mini-css-extract-plugin": "^2.8.1",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",
@@ -41,5 +42,8 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4",
     "webpack-merge": "^5.10.0"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.3.10"
   }
 }

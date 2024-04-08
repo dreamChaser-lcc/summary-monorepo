@@ -192,3 +192,18 @@ module: sourceMap是未编译的代码，即react或vue代码，否则是已经�
 }
 ```
 在React应用中可以使用react-hot-loader,实现组件级别的热模块更新，webpack仅支持模块级别的更新，不够精细
+## 如何启动本地打包文件，并测试部署效果
+1. 安装serve
+```bash
+# 全局安装serve
+npm install -g serve
+# or pnpm 安装到全局（需要pnpm setup 指定环境变量）
+pnpm add -g serve
+# or pnpm安装到工作目录上
+pnpm add -w serve 
+```
+2. 启动本地服务
+```bash 
+# packages/webpack-react/dist为打包后的资源路径
+npx serve packages/webpack-react/dist
+```

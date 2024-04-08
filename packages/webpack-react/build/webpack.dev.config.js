@@ -41,6 +41,9 @@ const devConfig ={
       // },
     ]
   },
+  optimization: {
+    minimize: true,
+  },
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),

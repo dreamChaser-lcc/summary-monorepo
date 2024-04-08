@@ -6,6 +6,7 @@ import "./assets/index.less";
 import "./assets/global.less";
 
 const App:FC = ()=> {
+  console.log('我要打印答应')
   return (
     <div className="app-container">
       {/* vw适配方案 */}
