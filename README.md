@@ -72,3 +72,9 @@ module.exports = {
   },
 };
 ```
+
+```bash
+# 安装
+pnpm install -w commitizen
+pnpm install -w cz-conventional-changelog
+```

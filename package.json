@@ -12,7 +12,8 @@
     "webpack-react:dev": "pnpm run -C packages/webpack-react dev",
     "dev": "pnpm run -r -w dev --filter webpack-react",
     "all-dev": "pnpm run dev --filter packages/*",
-    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS"
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
+    "commit": "git cz"
   },
   "workspaces": {
     "packages": [
@@ -30,5 +31,9 @@
     "husky": "^9.0.11",
     "serve": "^14.2.1",
     "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog-chinese": "^2.3.0"
   }
 }
