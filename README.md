@@ -32,13 +32,14 @@ husky init
 # 4.添加git hooks钩子文件，在.husky/commit-msg中添加内容,会执行commitlint.config.js中的配置
 npx --no -- commitlint --edit $1
 ```
-
+### 添加commitlint配置文件
 ```js
 // commitlint.config.js 配置文件
 module.exports = {
   extends: [
     '@commitlint/config-conventional'
   ],
+  // 以下rules是自定义覆盖扩展@commitlint/config-conventional的规则
   rules: {
     'type-enum': [
       // type枚举
@@ -73,8 +74,49 @@ module.exports = {
 };
 ```
 
+### 添加commitizen命令行提示
+在commitlint规范要求下，添加命令行提示输入提交规范，避免手动输入出现报错
+
+`之后用git cz代替 git commit 把代码提交`
 ```bash
-# 安装
-pnpm install -w commitizen
+# 安装commitizen
+pnpm install -g commitizen
+# 英文版选择命令行
 pnpm install -w cz-conventional-changelog
+# 中文版选择命令行
+pnpm install -w cz-conventional-changelog-chinese
+```
+安装后需要添加配置文件，在根目录添加.czrc文件
+```json
+// .czrc文件
+{
+  "path":"./node_modules/cz-conventional-changelog-chinese" 
+  
+  // 或者 "path":"./node_modules/cz-conventional-changelog" 
+  // 其他配置可以查看 https://www.npmjs.com/package/cz-conventional-changelog
+}
+```
+或者在package.json中添加配置
+
+```json
+// package.json文件
+{
+  "config": {
+    "commitizen": {
+      "path":"./node_modules/cz-conventional-changelog-chinese" 
+      //or "path": "./node_modules/cz-conventional-changelog"
+      //or "path": "cz-conventional-changelog"
+    }
+  }
+}
+```
+
+## .npmrc文件
+参考文档 
+1. https://docs.npmjs.com/cli/v10/configuring-npm/npmrc
+2. https://pnpm.io/zh/npmrc
+```bash
+# 忽略pnpm install -w 没有 -w，会出现报错提示
+ignore-workspace-root-check = true
+# ...更多配置
 ```
