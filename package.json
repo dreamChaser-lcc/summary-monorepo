@@ -10,7 +10,7 @@
     "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack-react:dev": "pnpm run -C app/webpack-react dev",
-    "dev": "pnpm run -r -w dev --filter webpack-react",
+    "dev": "pnpm run -r -w --filter webpack-react dev",
     "all-dev": "pnpm run dev --filter packages/*",
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "commit": "git cz"
