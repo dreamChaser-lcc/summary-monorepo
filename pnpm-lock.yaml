@@ -150,7 +150,11 @@ importers:
         specifier: ^5.3.10
         version: 5.3.10(webpack@5.91.0)
 
-  packages/utils: {}
+  packages/utils:
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
 
   packages/vite-vue:
     dependencies:

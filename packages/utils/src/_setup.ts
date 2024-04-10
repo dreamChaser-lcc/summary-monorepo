@@ -1,0 +1,1 @@
+export const CONSTANT_VERSION = "0.0.1";

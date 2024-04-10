@@ -2,12 +2,18 @@
   "name": "@summary-monorepo/utils",
   "version": "0.1.0",
   "private": true,
-  "description": "",
-  "main": "src/index.js",
+  "description": "monorepo项目的通用方法工具文件存放在这里",
+  "main": "dist/lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean":"rimraf ./dist",
+    "build:ts": "npm run clean && tsc -p ./tsconfig.json",
+    "build:umd": "npm run clean && tsc -p ./tsconfig.umd.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT"
+  "keywords": ["common", "utils", "typescript"],
+  "author": "lcc",
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  }
 }
