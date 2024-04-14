@@ -3,11 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, '../src/index.js'),
+    app: path.resolve(__dirname, '../src/index.tsx'),
   },
   output:{
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[contenthash].chunk.js',
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].chunk.js',
     assetModuleFilename: 'images/[hash:10][ext][query]', // 资源文件的输出路径
     sourceMapFilename: '[file].[chunkhash:10].map[query]', // sourceMap路径
     clean:true,
@@ -28,6 +29,7 @@ module.exports = {
     compress: true,
     hot: true, // webpack5+默认内置，其他版本需要HotModuleReplacementPlugin
     port: 9000,
+    historyApiFallback: true, //history路由模式，找不到资源文件会重定向到程序入口文件app.js,部署需要用nginx重定向
   },
   plugins:[
     new HtmlWebpackPlugin({
