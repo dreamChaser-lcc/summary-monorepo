@@ -19,3 +19,8 @@ export { CONSTANT_VERSION } from './_setup';
  * 合成了一步骤，省略了import
  */
 export { default as testUtil } from './testUtils';
+
+// 重导.envi中所有方法，可以用import { isPC } from '@summary-monorepo/utils'方式导入;
+export * from './envi';
+
+export { default as drawCard } from './canvas-tools';

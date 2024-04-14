@@ -1,12 +1,8 @@
-/*
- * @Author: your name
- * @Date: 2021-08-25 18:39:50
- * @LastEditTime: 2021-11-01 11:26:55
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: /qlchat-financial-managment/client/app/utils/envi.js
+/**
+ * 判断浏览器环境的工具方法
  */
-export const ua = typeof window == 'undefined' ? '' : (window.navigator.userAgent || '');
+
+export const ua: any = typeof window == 'undefined' ? '' : (window.navigator.userAgent || '');
 
 export function isAndroid() {
 	return ua.indexOf('Android') > -1 || ua.indexOf('Linux') > -1;
@@ -25,6 +21,7 @@ export function isWeibo() {
 }
 
 export function isChrome() {
+	// @ts-ignore
 	return !!(typeof window != 'undefined' && window.chrome);
 }
 
@@ -32,16 +29,9 @@ export function isFireFox() {
 	return /firefox/i.test(ua.toLowerCase());
 }
 
+/**是否为PC端 */
 export function isPc() {
 	return !isAndroid() && !isIOS();
-}
-
-export function isQlchat() {
-	return ua.toLowerCase().match(/qlchat/i) == 'qlchat' && !isQlEduApp();
-}
-
-export function isQlEduApp() {
-	return ua.toLowerCase().match(/qlchat_edu/i) == 'qlchat_edu';
 }
 
 // 是否在支付宝APP
@@ -92,10 +82,11 @@ export function getAndroidVersion() {
 	if (isAndroid()) {
 		let reg = /android [\d._]+/gi;
 		let v_info = ua.match(reg);
-		let version = (String(v_info)).replace(/[^0-9|_.]/ig, '').replace(/_/ig, '.'); // 得到版本号4.2.2
+		let version:(string|number) = (String(v_info)).replace(/[^0-9|_.]/ig, '').replace(/_/ig, '.'); // 得到版本号4.2.2
 		version = parseInt(version.split('.')[0]);// 得到版本号第一位
 		return Number(version);
 	}
+	return null;
 }
 
 export function getIosVersion() {
@@ -106,6 +97,7 @@ export function getIosVersion() {
 
 // 判断是否为微信小程序
 export function isWeapp() {
+	// @ts-ignore
 	return typeof window != 'undefined' && window.__wxjs_environment === 'miniprogram';
 }
 

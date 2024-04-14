@@ -18,6 +18,7 @@ tsc --init
   "compilerOptions": {
     /* Language and Environment */
     "target": "ESNext",                                  /* 兼容语法版本esNext 最新的es规范*/
+    "lib": ["dom", "es2017"],                            /* 使用一些库，dom可以避免Window等一些浏览器API报错，需要搭配es2017*/
     
     /* Modules */
     "module": "CommonJS",                                /* 输出的模块化类型 */
@@ -52,4 +53,20 @@ tsc --init
   "exclude": ["./dist-ts","node_modules"]
 }
 
+```
+
+## 打包编译
+```bash
+tsc -p ./tsconfig.json
+```
+
+### 如何使用打包后的编译文件
+```json
+// package.json
+{
+   // 1.指定包的入口路径
+   "main": "dist/lib/index.js",
+   // 2.指定类型声明文件路径  
+   "types": "dist/types/index.d.ts",
+}
 ```
