@@ -113,19 +113,13 @@ const TestCommonUtils: FC<IProps> = () => {
       <div className="canvas-wrap">
         <div>canvas生成海报库（点击下方预览）</div>
         <img
+          className="canvas-poster"
           onClick={onChangePreview}
-          style={{
-            height: canvasConfig.cardHeight,
-            width: "100%",
-            objectFit: "contain",
-            border: "1px solid #c3c3c3",
-            background: '#c3c3c3'
-          }}
           src={poster}
           alt="canvas生成的图片，点击预览"
         />
         <div className="canvas-actions">
-          上传替换海报背景：
+          上传替换海报背景：<br/>
           <input type="file" accept="image/*" onChange={handleFileChange} />
         </div>
       </div>
