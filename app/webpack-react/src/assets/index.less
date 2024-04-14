@@ -9,4 +9,27 @@
     font-size: 36px;
     // width: 1180px;
   }
+  .tab-nav{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #c3c3c3;
+    .tab-item{
+      position: relative;
+      z-index: 99;
+      flex: 1;
+      font-size: 24px;
+      text-align: center;
+      padding: 12px;
+      cursor: pointer;
+      &.active{
+        background-color: #686f79;
+        color: #fff;
+      }
+    }
+    .tab-item+.tab-item{
+      border-left: 1px solid #c3c3c3;
+    }
+  }
 }
