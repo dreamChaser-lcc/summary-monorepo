@@ -60,14 +60,14 @@ const prodConfig = {
       enforceSizeThreshold: 50000, // 大于50kb强行拆包
       // hidePathInfo:true,
       cacheGroups: {
-        react: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/, // 将react和react-dom分开打包
-          name: 'react',  // 这个name需要配合webpack
-          // filename: '[name]',
-          priority: 0,
-          chunks: 'all',
-          reuseExistingChunk: true,
-        },
+        // react: {
+        //   test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/, // 将react和react-dom分开打包
+        //   name: 'react',  // 这个name需要配合webpack
+        //   // filename: '[name]',
+        //   priority: 0,
+        //   chunks: 'all',
+        //   reuseExistingChunk: true,
+        // },
         defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
           priority: -10,
@@ -105,6 +105,7 @@ const prodConfig = {
       name: (entrypoint) => `runtimechunk~${entrypoint.name}`,
     },
   },
+  // externalsType: 'script',
   performance: {  // 打包后体积过大提示
     hints: 'warning',
     maxEntrypointSize: 1024 * 1024, // 入口文件大于1MB提示
@@ -118,4 +119,24 @@ const prodConfig = {
   mode: 'production',
 }
 
-module.exports = merge(baseConfig, prodConfig);
+const handleExternalConfig = (useExternal)=>{
+  const config = merge(baseConfig, prodConfig);
+
+  if(useExternal){
+    const externals =  {
+      'react': 'React',
+      "react-dom": 'ReactDOM',
+    };
+    config.externals = Object.assign({}, config.externals, externals);
+    const externalsCdns = [
+      "https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.production.min.js",
+      "https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+    ];
+    // 因为html-webpack-plugin是配置在数组第一个,所以plugins[0]
+    config.plugins[0].options = Object.assign({}, config.plugins[0].options, { externalsCdns });
+  }
+
+  return config;
+};
+
+module.exports = handleExternalConfig(true);

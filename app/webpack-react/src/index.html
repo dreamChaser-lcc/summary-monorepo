@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=0.5"> -->
-  <title>webpack-react</title>
+  <!-- 读取注入htmlWebpackPlugin中的options变量，并设置title标题 -->
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <!-- 读取注入htmlWebpackPlugin中的externalsCdns变量，并添加script脚本(handlebars模板引擎) -->
+  <% for (var i in htmlWebpackPlugin.options.externalsCdns && htmlWebpackPlugin.options.externalsCdns) { %>
+      <script defer="defer" type="text/javascript" src="<%= htmlWebpackPlugin.options.externalsCdns[i] %>"></script>
+  <% } %>
 </head>
 <body>
   <div class="root-container">
@@ -11,6 +16,7 @@
   </div>
 </body>
 </html>
+
 <!-- 手淘适配方案cdn -->
 <!-- <script src="/app/webpack-react/src/flexible.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/lib-flexible@0.3.2/flexible.min.js"></script>

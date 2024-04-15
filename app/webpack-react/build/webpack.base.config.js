@@ -33,6 +33,7 @@ module.exports = {
   },
   plugins:[
     new HtmlWebpackPlugin({
+      title: 'webpack-react',
       template: path.resolve(__dirname, '../src/index.html')
     })
   ],
