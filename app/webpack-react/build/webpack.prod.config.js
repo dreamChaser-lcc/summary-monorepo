@@ -14,38 +14,53 @@ const prodConfig = {
   module:{
     rules:[
       {
-        test: /\.less$/,
-        exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', "postcss-loader", 'less-loader'],
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'less-loader'],
-      },
-      {
-        test: /\.jsx|\.js$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-      {
-        test: /\.tsx|\.ts$/,
-        exclude: /node_modules/,
-        use: 'ts-loader',
-      },
-      // 代替webpack4的file-loader
-      {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        type:'asset/resource',
-        generator: {
-          filename: 'static/[hash:10][ext][query]',// 单独定义输出路径和output.assetModuleFilename一样
-        }
-      },
-      // 还可以将图片变成base64格式，嵌入内嵌标签src
-      // {
-      //   test: /\.png/,
-      //   type: 'asset/inline'
-      // },
+        oneOf:[
+          {
+            test: /\.(less|css)$/,
+            exclude: /node_modules/,
+            use: [
+              MiniCssExtractPlugin.loader, 
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: false, // 禁用CSS source map
+                },
+              },
+              "postcss-loader",
+              'less-loader'
+            ],
+          },
+          // {
+          //   test: /\.css$/,
+          //   exclude: /node_modules/,
+          //   use: ['style-loader', 'css-loader', 'less-loader'],
+          // },
+          {
+            test: /\.jsx|\.js$/,
+            exclude: /node_modules/,
+            use: 'babel-loader',
+          },
+          {
+            test: /\.tsx|\.ts$/,
+            exclude: /node_modules/,
+            use: 'ts-loader',
+          },
+          // 代替webpack4的file-loader
+          {
+            test: /\.(png|jpe?g|gif|svg)$/i,
+            type:'asset/resource',
+            exclude: /node_modules/,
+            generator: {
+              filename: 'static/[hash:10][ext][query]',// 单独定义输出路径和output.assetModuleFilename一样
+            }
+          },
+          // 还可以将图片变成base64格式，嵌入内嵌标签src
+          // {
+          //   test: /\.png/,
+          //   type: 'asset/inline'
+          // },
+        ]
+      }
     ]
   },
   optimization: {
@@ -70,6 +85,7 @@ const prodConfig = {
         // },
         defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
+          filename: 'js/[name].[contenthash:10].chunk.js',
           priority: -10,
           reuseExistingChunk: true,
         },
@@ -102,7 +118,7 @@ const prodConfig = {
       }),
     ],
     runtimeChunk: {
-      name: (entrypoint) => `runtimechunk~${entrypoint.name}`,
+      name: (entrypoint) => `runtime/runtimechunk~${entrypoint.name}`,
     },
   },
   // externalsType: 'script',
@@ -113,9 +129,11 @@ const prodConfig = {
   },
   plugins:[
     new MiniCssExtractPlugin({
-      filename: `[name].[contenthash:10].css`,
+      filename: `css/[name].[contenthash:10].css`,
     }),
   ],
+  // 如果需要调试，建议source-map，因为报错信息可以映射到指定行和列，但构建时间也会增加，如果不需要生成映射文件，可以设置为false，可以减少构建时间
+  devtool: 'source-map',
   mode: 'production',
 }
 
