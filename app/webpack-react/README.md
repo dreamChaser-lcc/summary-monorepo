@@ -207,3 +207,44 @@ pnpm add -w serve
 # packages/webpack-react/dist为打包后的资源路径
 npx serve packages/webpack-react/dist
 ```
+## webpack externals 将一些第三方包取消打包，通过cdn引入
+可以添加externals之后手动引入cdn脚本,或者借助html-webpack-externals-plugin插件,或者借助html-webpack-plugin插件（以下流程）
+1. webpack externals 配置
+```js
+// webpack.config.js
+
+// 原本返回的配置,改写成下面的写法
+module.exports = merge(baseConfig, prodConfig);
+
+// 以下代码两个作用
+// 1. externals配置到webpack config中
+// 2. 将externalsCdns变量添加到html-webpack-plugin中的options中
+// 为什么这么处理，在template配置的index.html中可以读取htmlWebpackPlugin.options.externalsCdns
+// 然后通过handlebars模板语法遍历引入cdn资源
+const handleExternalConfig = ()=>{
+  const config = merge(baseConfig, prodConfig);
+
+  const externalsCdns = [
+    "https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.production.min.js",
+    "https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+  ]
+  // 因为html-webpack-plugin是配置在数组第一个,所以plugins[0]
+  config.plugins[0].options = Object.assign({}, config.plugins[0].options, { externalsCdns });
+  const externals =  {
+    'react': 'React',
+    "react-dom": 'ReactDOM',
+  };
+  config.externals = Object.assign({},config.externals, externals);
+  return config;
+};
+
+module.exports = handleExternalConfig();
+```
+
+2. 然后在html-webpack-plugin,template选项配置的中html文件读取externalsCdns变量，然后遍历引入cdn资源
+```html
+<!-- 读取注入htmlWebpackPlugin中的externalsCdns变量，并添加script脚本(使用defer,一定要比主包先引入，不然会找不到变量，因为主包也用了defer) -->
+<% for (var i in htmlWebpackPlugin.options.externalsCdns && htmlWebpackPlugin.options.externalsCdns) { %>
+    <script defer="defer" type="text/javascript" src="<%= htmlWebpackPlugin.options.externalsCdns[i] %>"></script>
+<% } %>
+```
