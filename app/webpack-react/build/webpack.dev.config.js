@@ -55,6 +55,8 @@ const devConfig ={
     hot: true, // webpack5+默认内置，其他版本需要HotModuleReplacementPlugin
     port: 9000,
   },
+  // 推荐 cheap-module-source-map 或 cheap-source-map,可以将错误信息映射到对应行,如果需要更快则设置eval-cheap-module-source-map
+  devtool: 'cheap-module-source-map', 
   mode: 'development',
 }
 

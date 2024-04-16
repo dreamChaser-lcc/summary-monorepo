@@ -7,14 +7,27 @@ module.exports = {
   },
   output:{
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].chunk.js',
+    filename: '[name].[contenthash].bundle.js',
+    chunkFilename: 'js/[name].chunk.js',  // chunkFilename选项只适用于异步按需加载的chunk拆分
     assetModuleFilename: 'images/[hash:10][ext][query]', // 资源文件的输出路径
     sourceMapFilename: '[file].[chunkhash:10].map[query]', // sourceMap路径
     clean:true,
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'], // 配置文件后缀名,在引入时可以省略掉
+    extensionAlias: {
+      '.js': ['.ts', '.js'],
+      '.tsx': ['.tsx', '.jsx'],
+      '.mjs': ['.mts', '.mjs'],
+    },
+    modules: [  // 导入寻找模块的顺序，优先找src目录下的包，再去node_modules寻找
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ],
+    // mainFiles 在导入第三模块时，检索入口文件的字段，
+    // 如:import React from 'react'，会优先查询react中的package.json中的browser字段,是否定义，如果定义，就以定义的为入口路径解析模块
+    // 依次查询顺序 browser > module > main,那么如果确定main字段定义的是入口文件，可以仅设置为['main'],可以减少检索构建时间
+    mainFields: ['browser', 'module', 'main'],
     alias: {
       "@": path.resolve(__dirname, '../src'),
     },
