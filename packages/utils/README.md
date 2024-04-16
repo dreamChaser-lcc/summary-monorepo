@@ -1,16 +1,56 @@
 # 通用工具方法包
-使用typescript 编译打包
+使用typescript ts编译打包,输出js文件和d.ts声明文件
+
+## 主旨
+1. 封装常用工具方法(后续会添加更多内容)
+2. 熟悉ts构建打包，并输入文件
+3. 熟悉monorepo开发公共工具库的流程
+4. 熟悉常见模块化打包和导入，如commonjs,esModule,umd(兼容前两种的模块化,内置判断)
+
+## 构建项目
+安装依赖后执行构建脚本
+```bash
+pnpm run --filter utils build:ts
+```
+
+## 项目目录结构
+```
+utils                       
+├─ dist                                       // 打包后输出文件         
+│  ├─ lib                                     // 输出的js文件
+│  │  ├─ canvas-tools.js    
+│  │  ├─ envi.js            
+│  │  ├─ index.js           
+│  │  ├─ testUtils.js       
+│  │  └─ _setup.js          
+│  └─ types                                   // 输出的d.ts类型声明文件
+│     ├─ canvas-tools.d.ts  
+│     ├─ envi.d.ts          
+│     ├─ index.d.ts         
+│     ├─ testUtils.d.ts     
+│     └─ _setup.d.ts        
+├─ src                                        // 源码
+│  ├─ canvas-tools.ts       
+│  ├─ envi.ts               
+│  ├─ index.ts              
+│  ├─ testUtils.ts          
+│  └─ _setup.ts             
+├─ package.json             
+├─ README.md                
+└─ tsconfig.json                             // ts配置文件
+```
 
 ## typescript 配置选项文档
 具体配置请访问
-1. https://aka.ms/tsconfig (英文官网)
-2. https://www.typescriptlang.org/docs/handbook/compiler-options.html（英文官网-命令行可选项）
-3. https://www.tslang.cn/docs/handbook/compiler-options.html（中文官网）
+1. https://aka.ms/tsconfig  (英文官网)
+2. https://www.typescriptlang.org/docs/handbook/compiler-options.html （英文官网-命令行编译可选项）
+3. https://www.tslang.cn/docs/handbook/compiler-options.html （中文官网）
 
 ## 初始化typescript配置文件
 ```bash
 tsc --init
 ```
+配置相关编译选项
 ```json
 // tsconfig.json
 {
@@ -48,9 +88,9 @@ tsc --init
     "noImplicitReturns": true,                           /* Enable error reporting for codepaths that do not explicitly return in a function. */
   },
   "include": [
-    "./src/*"
+    "src/**.ts"
   ],
-  "exclude": ["./dist-ts","node_modules"]
+  "exclude": ["dist","./dist-ts","node_modules"]
 }
 
 ```

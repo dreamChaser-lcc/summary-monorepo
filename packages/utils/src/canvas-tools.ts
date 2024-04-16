@@ -464,6 +464,7 @@ function headBgClipDialog(ctx, imageObj) {
 	ctx.arcTo(x + 5, y, x + w + 5, y, r_all);
 
 	ctx.stroke();
+	return void 0;
 }
 
 
@@ -505,6 +506,7 @@ function loadNumImg(numUrlArray, imageProxyFunc, cb) {
 				typeof cb === 'function' && cb(numImfArray);
 				return numImfArray;
 			}
+			return void 0;
 		};
 	}
 }

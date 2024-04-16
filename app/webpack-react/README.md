@@ -1,33 +1,45 @@
+# webpack-react 
+使用webpack5从零搭建react+ts项目
 
-## 安装loader依赖
+## 主旨
+- 探究并熟悉webpack5 构建工具
+- 熟悉ts构建配置
+- 体验monorepo管理项目,并且引入monorepo中的其他公共方法库
+- 探究rem和vw经典移动端适配方案
 
+## 核心demo
+- rem 适配方案页面
+- vw 适配方案页面
+- 引用monorepo中的公共方法库
+
+## 启动项目
+1. 在根目录下安装依赖
 ```bash
-pnpm add html-webpack-plugin ts-loader @babel/core babel-loader --filter webpack-react
+pnpm install --filter webpack-react
+```
+2. 启动项目
+```bash
+pnpm run --filter webpack-react dev 
+# or 
+pnpm run --filter webpack-react build
+# or
+pnpm run --filter webpack-react build:serve
 ```
 
-## 安装typescript
-```bash
-pnpm add -w typescript 
-# and 初始化配置文件tsconfig.json
-npx tsc --init
-```
+## webpack5搭建react项目
 
-## 安装React
-```bash
-pnpm add @types/react @types/react-dom --filter webpack-react
-```
-
-## webpack相关
+### 安装webpack相关依赖
 ```bash
  pnpm add webpack webpack-cli webpack-dev-server --filter webpack-react
 ```
 
-## 运行工作空间的中的单个项目脚本
+### 安装loader依赖
+处理ts的ts-loader, 兼容es6语法转换的babel-loader, 更多兼容语法的@babel/core (替代了旧版本的polyfill垫片，对promise,generator,等语法转换成能兼容更低版本的代码)
 ```bash
-pnpm run -C packages/webpack-react dev
+pnpm add html-webpack-plugin ts-loader @babel/core babel-loader --filter webpack-react
 ```
 
-## postcss-loader 
+### postcss-loader 
 
 对样式文件进行兼容处理,比如浏览器前缀,一键转换px2rem
 
@@ -55,7 +67,7 @@ ios >= 8
 not ie <= 11
 firefox >= 15
 ```
-### 如何查看兼容浏览器的列表?
+#### 如何查看兼容浏览器的列表?
 在终端项目根目录下输入以下命令会打印到控制台,显示出语法兼容的浏览器版本
 ```bash
 npm install -g browserslist
@@ -64,13 +76,131 @@ npx browserslist
 ```
 文档:[browserslist](https://github.com/browserslist/browserslist)
 
+
+### 安装 plugin 依赖
+慢点再总结
+
+### 安装typescript
+```bash
+pnpm add -w typescript 
+# and 初始化配置文件tsconfig.json
+npx tsc --init
+```
+
+### 安装React
+```bash
+pnpm add react react-dom react-router-dom @types/react @types/react-dom --filter webpack-react
+```
+
+### 运行工作空间(workspace)中的单个项目脚本
+```bash
+pnpm run -C app/webpack-react dev
+# or 
+pnpm run --filter webpack-react dev
+```
+
+## webpack sourceMap详解
+相关文章：https://www.cnblogs.com/yaopengfei/p/17192040.html
+
+webpack配置：https://webpack.docschina.org/configuration/devtool/
+
+正则组合公式：[inline-|hidden-|eval-][nosources-][cheap-[module-]]source-map
+
+cheap: 错误信息，只会映射到行不会映射到列，比较低开销，较高效
+
+module: sourceMap是未编译的代码，即react或vue代码，否则是已经编译后的js文件，较慢
+
+避免在生产中使用 inline-*** 和 eval-***，因为它们会增加 bundle 体积大小，并降低整体性能。
+
+结论：
+开发环境： cheap-source-map 或者 cheap-module-source-map 
+生产环境： source-map 或者 false
+
+```js
+// webpack.config.js
+{
+  devtool: 'source-map'
+}
+```
+### webpack 热模块更新
+
+```js
+// webpack.config.js
+{
+  devServer: {
+    hot: true, // webpack5+默认内置，其他版本需要HotModuleReplacementPlugin
+  },
+}
+```
+在React应用中可以使用react-hot-loader,实现组件级别的热模块更新，webpack仅支持模块级别的更新，不够精细
+
+### webpack externals 将一些第三方包取消打包，通过cdn引入
+可以添加externals之后手动引入cdn脚本,或者借助html-webpack-externals-plugin插件,或者借助html-webpack-plugin插件（以下流程）
+1. webpack externals 配置
+```js
+// webpack.config.js
+
+// 原本返回的配置,改写成下面的写法
+module.exports = merge(baseConfig, prodConfig);
+
+// 以下代码两个作用
+// 1. externals配置到webpack config中
+// 2. 将externalsCdns变量添加到html-webpack-plugin中的options中
+// 为什么这么处理，在template配置的index.html中可以读取htmlWebpackPlugin.options.externalsCdns
+// 然后通过handlebars模板语法遍历引入cdn资源
+const handleExternalConfig = ()=>{
+  const config = merge(baseConfig, prodConfig);
+
+  const externalsCdns = [
+    "https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.production.min.js",
+    "https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
+  ]
+  // 因为html-webpack-plugin是配置在数组第一个,所以plugins[0]
+  config.plugins[0].options = Object.assign({}, config.plugins[0].options, { externalsCdns });
+  const externals =  {
+    'react': 'React',
+    "react-dom": 'ReactDOM',
+  };
+  config.externals = Object.assign({},config.externals, externals);
+  return config;
+};
+
+module.exports = handleExternalConfig();
+```
+
+2. 然后在html-webpack-plugin,template选项配置的中html文件读取externalsCdns变量，然后遍历引入cdn资源
+```html
+<!-- 读取注入htmlWebpackPlugin中的externalsCdns变量，并添加script脚本(使用defer,一定要比主包先引入，不然会找不到变量，因为主包也用了defer) -->
+<% for (var i in htmlWebpackPlugin.options.externalsCdns && htmlWebpackPlugin.options.externalsCdns) { %>
+    <script defer="defer" type="text/javascript" src="<%= htmlWebpackPlugin.options.externalsCdns[i] %>"></script>
+<% } %>
+```
+
+## 如何启动本地打包文件，并测试部署效果
+1. 安装serve
+```bash
+# 全局安装serve
+npm install -g serve
+# or pnpm 安装到全局（需要pnpm setup 指定环境变量）
+pnpm add -g serve
+# or pnpm安装到工作目录上
+pnpm add -w serve 
+```
+2. 启动本地服务
+```bash 
+# packages/webpack-react/dist为打包后的资源路径
+npx serve app/webpack-react/dist
+# or 执行打包并启动测试服务
+pnpm run --filter webpack-react build:serve
+```
+
 ## 移动端适配方案
 主要有三大类，
 - 使用相对单位的方式等比缩放的缩放还原设计稿（rem,vw）
 - 媒体查询适配，预设多中屏幕尺寸的样式（维护较难，成本大）
 - flex、栅格布局方式，等自适应方式（容易导致样式和设计稿存在差异）
 
-### 等比缩放rem方案
+### 1.等比缩放rem方案
 原理：rem是相对于html中font-size的单位，如html中的font-size默认是16px,那么1rem = 16px;
 #### 如何适配?
 经典库flexible, 源码地址：https://cdn.jsdelivr.net/npm/lib-flexible@0.3.2/flexible.js
@@ -141,7 +271,7 @@ if (!metaEl) {
 - 需要缩放meta viewport,可能会留下隐患
 - 系统字体大小会影响rem的计算,比如微信中的老人版字体也会导致font-size改变，导致rem计算错误
 
-### 等比缩放vw方案
+### 2.等比缩放vw方案
 相对于rem方案，兼容性较差，不支持ie8及以下的版本，但大部分主流浏览器都会支持。
 
 #### 原理
@@ -157,94 +287,3 @@ if (!metaEl) {
 #### 有什么不足？
 1. 兼容性相对于rem较差，但目前现代浏览器大部分都支持
 2. 不能很好适配平板或者PC, 因为PC宽高和移动端的高度相差较大,导致1vw很大,必然会导致比例过大, 仅适用于移动端
-
-## webpack sourceMap详解
-相关文章：https://www.cnblogs.com/yaopengfei/p/17192040.html
-
-webpack配置：https://webpack.docschina.org/configuration/devtool/
-
-正则组合公式：[inline-|hidden-|eval-][nosources-][cheap-[module-]]source-map
-
-cheap: 错误信息，只会映射到行不会映射到列，比较低开销，较高效
-
-module: sourceMap是未编译的代码，即react或vue代码，否则是已经编译后的js文件，较慢
-
-避免在生产中使用 inline-*** 和 eval-***，因为它们会增加 bundle 体积大小，并降低整体性能。
-
-结论：
-开发环境： cheap-source-map 或者 cheap-module-source-map 
-生产环境： source-map 或者 false
-
-```js
-// webpack.config.js
-{
-  devtool: 'source-map'
-}
-```
-## webpack 热模块更新
-
-```js
-// webpack.config.js
-{
-  devServer: {
-    hot: true, // webpack5+默认内置，其他版本需要HotModuleReplacementPlugin
-  },
-}
-```
-在React应用中可以使用react-hot-loader,实现组件级别的热模块更新，webpack仅支持模块级别的更新，不够精细
-## 如何启动本地打包文件，并测试部署效果
-1. 安装serve
-```bash
-# 全局安装serve
-npm install -g serve
-# or pnpm 安装到全局（需要pnpm setup 指定环境变量）
-pnpm add -g serve
-# or pnpm安装到工作目录上
-pnpm add -w serve 
-```
-2. 启动本地服务
-```bash 
-# packages/webpack-react/dist为打包后的资源路径
-npx serve packages/webpack-react/dist
-```
-## webpack externals 将一些第三方包取消打包，通过cdn引入
-可以添加externals之后手动引入cdn脚本,或者借助html-webpack-externals-plugin插件,或者借助html-webpack-plugin插件（以下流程）
-1. webpack externals 配置
-```js
-// webpack.config.js
-
-// 原本返回的配置,改写成下面的写法
-module.exports = merge(baseConfig, prodConfig);
-
-// 以下代码两个作用
-// 1. externals配置到webpack config中
-// 2. 将externalsCdns变量添加到html-webpack-plugin中的options中
-// 为什么这么处理，在template配置的index.html中可以读取htmlWebpackPlugin.options.externalsCdns
-// 然后通过handlebars模板语法遍历引入cdn资源
-const handleExternalConfig = ()=>{
-  const config = merge(baseConfig, prodConfig);
-
-  const externalsCdns = [
-    "https://cdn.bootcdn.net/ajax/libs/react/18.2.0/umd/react.production.min.js",
-    "https://cdn.bootcdn.net/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js",
-  ]
-  // 因为html-webpack-plugin是配置在数组第一个,所以plugins[0]
-  config.plugins[0].options = Object.assign({}, config.plugins[0].options, { externalsCdns });
-  const externals =  {
-    'react': 'React',
-    "react-dom": 'ReactDOM',
-  };
-  config.externals = Object.assign({},config.externals, externals);
-  return config;
-};
-
-module.exports = handleExternalConfig();
-```
-
-2. 然后在html-webpack-plugin,template选项配置的中html文件读取externalsCdns变量，然后遍历引入cdn资源
-```html
-<!-- 读取注入htmlWebpackPlugin中的externalsCdns变量，并添加script脚本(使用defer,一定要比主包先引入，不然会找不到变量，因为主包也用了defer) -->
-<% for (var i in htmlWebpackPlugin.options.externalsCdns && htmlWebpackPlugin.options.externalsCdns) { %>
-    <script defer="defer" type="text/javascript" src="<%= htmlWebpackPlugin.options.externalsCdns[i] %>"></script>
-<% } %>
-```
