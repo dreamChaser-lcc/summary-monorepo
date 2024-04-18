@@ -10,6 +10,8 @@ monorepo汇总各种项目
 ## 项目结构目录
 ```
 summary-monorepo                                                           
+├─ .vscode                                               
+│  ├─ extension.json                                     // 一些推荐安装的扩展包
 ├─ .husky                                                // git hooks 钩子函数                                                                       
 ├─ app                                                   // monorepo 子应用项目                       
 │  ├─ vite-vue                                                            
@@ -76,6 +78,18 @@ packages:
   - 'components/**'
   # exclude packages that are inside test directories
   - '!**/test/**'
+```
+或者在定义workspace字段
+```json
+// package.json
+{
+  "workspaces": {
+    "packages": [
+      "app/*",
+      "packages/*"
+    ]
+  }
+}
 ```
 
 ### 子项目中互相引用作为依赖（工作目录配置可以通过软连接映射到对应的项目依赖中）

@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "steoates.autoimport",
+    "streetsidesoftware.code-spell-checker",
+    "wix.vscode-import-cost",
+    "wscats.eno",
+    "zuoez02.tslint-snippets",
+    "chakrounanas.turbo-console-log"
+  ]
+}

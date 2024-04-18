@@ -3,12 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "description": "monorepo项目的通用方法工具文件存放在这里",
-  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean":"rimraf ./dist",
     "build:ts": "npm run clean && tsc -p ./tsconfig.json",
     "build:umd": "npm run clean && tsc -p ./tsconfig.umd.json"
+  },
+  "main": "./src/index.ts",
+  "exports":{
+    ".":{
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/lib/index.js"
+    },
+    "./setup": "./dist/lib/_setup.js"
   },
   "keywords": ["common", "utils", "typescript"],
   "author": "lcc",

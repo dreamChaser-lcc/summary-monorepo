@@ -110,3 +110,115 @@ tsc -p ./tsconfig.json
    "types": "dist/types/index.d.ts",
 }
 ```
+
+## 模块化
+commonjs与esModule模块化
+
+[模块化相关知识链接](https://es6.ruanyifeng.com/#docs/module-loader#package-json-%E7%9A%84-exports-%E5%AD%97%E6%AE%B5)
+
+
+## package.json 字段解析
+
+### main 字段
+- 指定包的默认入口路径
+
+```json
+{
+  "main": "src/index.ts"
+}
+```
+导入时,会命中node_modules中@summary-monorepo/utils中的src/index.ts
+
+```ts
+import * as allUtils from '@summary-monorepo/utils' // 相当于 import * as allUtils from ./node_modules/@summary-monorepo/utils/src/index.ts
+```
+
+### exports 字段
+- 可以具体指定包入口路径，和main字段功能一致，在nodeV12+版本上，该字段的优先级比main高
+- 可以指定不同模块化类型的入口路径
+- 还可以指定导出子模块（但是ts会报错，暂时未找到解决方案）
+
+如下面配置
+```json
+// package.json
+{
+  "name": "@summary-monorepo/utils",
+  "main": "./src/index.ts",
+  "exports":{
+    ".":{
+      "import": "./src/index.ts",         // esModule 模块时，包入口的路径node_modules/@summary-monorepo/utils/src/index.ts
+      "require": "./dist/lib/index.js",   // commonjs 模块时，包入口的路径node_modules/@summary-monorepo/utils/dist/lib/index.js
+      "types": "./dist/lib/index.d.ts"    // 声明文件路径（好像没用）
+    },
+    "./setup": "./dist/lib/_setup.js"
+  },
+}
+```
+commonjs模块导入 (webpack搭建的项目，会命中require定义的入口)
+```js
+// test.cjs 文件
+const test = require("@summary-monorepo/utils");  // 命中路径，node_modules/@summary-monorepo/utils/dist/lib/index.js
+console.log(test); 
+```
+module模块导入
+```js
+// test.mjs 文件
+import test from "@summary-monorepo/utils";  // 命中路径，node_modules/@summary-monorepo/utils/src/index.ts
+console.log(test);
+```
+导出子模块
+```ts
+// test.ts 文件
+import 
+// 导出子模块（但是ts会报错，暂时未找到解决方案）
+// @ts-ignore
+import { CONSTANT_VERSION } from "@summary-monorepo/utils/setup"; // 命中路径，node_modules/@summary-monorepo/utils/dist/lib/_setup.js
+```
+
+### type 字段
+- 指定当前包，是esModule还是commonjs模块,
+- 当时commonjs模块时，使用import/export会报错，
+- 当type为module时，.js文件require/module.exports等会报错,但可以用.cjs后缀名称来区分，.cjs文件可以使用commonjs模块化，.mjs文件使用esModule模块化
+```json
+// package.json
+{
+  "type": "commonjs", // commonjs or module
+}
+```
+
+### files 字段
+上传npm包时, 会被上传的文件目录
+```json
+// package.json
+{
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md",
+  ],  
+}
+// or react包的配置
+{
+   "files": [
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "cjs/",
+    "umd/",
+    "jsx-runtime.js",
+    "jsx-dev-runtime.js",
+    "react.shared-subset.js"
+  ],
+}
+```
+
+### engines 字段
+指定运行命令行的环境要求的版本，不符合要求会报错，比如nodeV12或者pnpm小于7版本执行以下的包会报出环境错误
+```json
+{
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7"
+  },
+}
+```

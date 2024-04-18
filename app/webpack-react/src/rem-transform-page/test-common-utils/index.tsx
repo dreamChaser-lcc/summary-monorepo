@@ -5,6 +5,8 @@ import * as utils from "@summary-monorepo/utils";
 import paymentCode from "@/assets/images/payment-code.jpg";
 import PreviewImg from "@/rem-transform-page/test-common-utils/components/previewImg";
 
+// import { CONSTANT_VERSION } from "@summary-monorepo/utils/setup";
+
 import "./style.less";
 
 interface IProps {}
