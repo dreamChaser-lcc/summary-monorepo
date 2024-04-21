@@ -8,7 +8,8 @@
     "start": "npm run dev",
     "dev": "webpack server --config ./build/webpack.dev.config.js",
     "build": "webpack --config ./build/webpack.prod.config.js",
-    "build:serve": "webpack --config ./build/webpack.prod.config.js && pnpm serve ./dist",
+    "build:serve": "pnpm serve ./dist",
+    "build:preview": "pnpm run build && pnpm run build:serve",
     "build:ts": "tsc -p ./tsconfig.json",
     "build:ts1": "tsc --build --dry --verbose"
   },

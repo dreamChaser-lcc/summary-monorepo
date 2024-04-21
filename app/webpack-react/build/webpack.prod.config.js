@@ -43,7 +43,7 @@ const prodConfig = {
           {
             test: /\.tsx|\.ts$/,
             exclude: /node_modules/,
-            use: 'ts-loader',
+            use: ['babel-loader','ts-loader'], // 添加babel仅兼容js，不做ts编译，编译交给ts-loader，也可以直接使用babel的ts相关预设插件
           },
           // 代替webpack4的file-loader
           {
