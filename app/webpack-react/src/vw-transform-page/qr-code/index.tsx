@@ -32,4 +32,4 @@ export const VwQrCode: FC<IProps> = (props) => {
     <img className='logo' src={weChatImg} alt="logo" />
   </div>)
 }
-// export default VwQrCode;
+export default VwQrCode;
