@@ -5,6 +5,11 @@ import * as utils from "@summary-monorepo/utils";
 import paymentCode from "@/assets/images/payment-code.jpg";
 import PreviewImg from "@/rem-transform-page/test-common-utils/components/previewImg";
 
+// cssModule样式隔离Demo组件
+import UseCssModule from '@/rem-transform-page/test-common-utils/components/useCssModule';
+// cssInJs样式隔离Demo组件
+import CssInJsComponent from '@/rem-transform-page/test-common-utils/components/cssInJsComponent';
+
 // import { CONSTANT_VERSION } from "@summary-monorepo/utils/setup";
 
 import "./style.less";
@@ -126,7 +131,8 @@ const TestCommonUtils: FC<IProps> = () => {
         </div>
       </div>
       {previewAble && <PreviewImg imgUrl={poster} onClose={onChangePreview} />}
-      
+      <UseCssModule/>
+      <CssInJsComponent/>
     </div>
   );
 };

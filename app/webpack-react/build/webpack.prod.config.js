@@ -6,6 +6,7 @@ const baseConfig = require('./webpack.base.config');
 const os = require('os');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { getCssLoaderConfig } = require("./loader.common.utils");
 
 const prodConfig = {
   entry: {
@@ -20,12 +21,7 @@ const prodConfig = {
             exclude: /node_modules/,
             use: [
               MiniCssExtractPlugin.loader, 
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: false, // 禁用CSS source map
-                },
-              },
+              getCssLoaderConfig(),
               "postcss-loader",
               'less-loader'
             ],

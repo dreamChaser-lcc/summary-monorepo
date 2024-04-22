@@ -11,6 +11,7 @@
 - rem 适配方案页面
 - vw 适配方案页面
 - 引用monorepo中的公共方法库
+- 样式隔离方案（cssModule,cssInJs）
 
 ## 启动项目
 1. 在根目录下安装依赖
@@ -287,3 +288,101 @@ if (!metaEl) {
 #### 有什么不足？
 1. 兼容性相对于rem较差，但目前现代浏览器大部分都支持
 2. 不能很好适配平板或者PC, 因为PC宽高和移动端的高度相差较大,导致1vw很大,必然会导致比例过大, 仅适用于移动端
+
+## 工程化样式隔离方案
+核心原理，生成新的hash随机类名，避免重复类名的样式冲突
+- cssModule (利用css-loader中的module配置)
+- cssInJs (styled-components)
+其他样式隔离方案
+- vue里面的scope(也是生成hash值，hash是针对文件路径内容计算的hash,并且不是改变类名，而是添加自定义属性，在引入css时通过`.原类名[属性hash]`方式读取)
+- consoleIO（批量添加类名前缀，对类名统一添加文件名前缀）
+- shadowDOM(qiankun的方案,暂时没有探究原理)
+
+### cssModule使用流程
+需要结合webpack进行使用
+
+1. webpack中的loader配置
+```js
+// webpack.config.js
+
+module.exports = {
+  module:{
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+              'style-loader',
+              {
+                loader: "css-loader",
+                options: {
+                  modules: { // 工程化cssModule
+                    localIdentName: '[local]-[hash:base64:5]',  // css类名的定义规则
+                    // auto: (resourcePath, resourceQuery, resourceFragment) => {
+                    //   console.log('outer resourcePath',resourcePath)
+                    //   return resourcePath.endsWith(".module.css") ||  resourcePath.endsWith(".module.less");
+                    // },
+                    mode: (resourcePath, resourceQuery, resourceFragment) => { // 通过文件名称判断是否需要进行cssModule
+                      /**
+                       * cssModule.mode
+                       * local：默认模式，生成的类名是局部作用域的，不会影响其他组件。
+                       * global：生成的类名是全局作用域的，可以在全局范围内使用，不会被模块化。
+                       * pure：类似于local模式，但不支持composes语法，可以提供更纯净的局部作用域。
+                       * icss：支持import语法，可以用于在不同的CSS文件之间共享类名。
+                       */
+                      if (/\.module\.(less|css)$/i.test(resourcePath)) {
+                        console.log('cssModule resourcePath', resourcePath)
+                        return "local";
+                      }
+                      return "global";
+                    },
+                  },
+                  ...options
+                },
+              }
+        ]
+      }
+    ]
+  }
+}
+```
+2. 在项目中使用
+从`module.less`文件中的导出的cssModuleLess会获得一个对象，该对象中包含了less文件中的样式类名键值对
+```css
+/* 
+* demo/style.less 文件
+*/
+.less-container{
+    color: red;
+}
+```
+```tsx
+// demo/index.tsx文件
+import { FC } from "react";
+
+// 正常样式
+import "./style.less";
+// less和css 使用cssModule样式隔离
+import cssModuleLess from "./style.module.less";
+import cssModuleCss from "./style.module.css";
+
+/**
+ * CssModule样式隔离组件demo
+ * webpack css-loader 解析后会生成新的hash类名
+ */
+const UseCssModule: FC = () => {
+  // cssModule会将样式类名转换成类名键值对对象
+  console.log('preview cssModule Object',cssModuleLess,cssModuleCss);
+
+  return (
+    <div className="use-css-module-container">
+      <div>
+        cssModule样式隔离demo:
+      </div>
+      <span className={cssModuleLess["less-container"]}>*.module.less </span>
+      <span className={cssModuleCss["css-container"]}>*.module.css</span>
+    </div>
+  );
+};
+export default UseCssModule;
+```
+
