@@ -143,6 +143,11 @@ module: sourceMap是未编译的代码，即react或vue代码，否则是已经�
 在React应用中可以使用react-hot-loader,实现组件级别的热模块更新，webpack仅支持模块级别的更新，不够精细
 
 ### webpack externals 将一些第三方包取消打包，通过cdn引入
+引入CDN的好处：
+- 减少打包构建后的体积
+- 当公共库版本更新的时候，不需要重新install安装依赖包
+- 全称：内容分发网络，在上海访问会分发到离上海最近的部署站点，加快请求响应速度
+
 可以添加externals之后手动引入cdn脚本,或者借助html-webpack-externals-plugin插件,或者借助html-webpack-plugin插件（以下流程）
 1. webpack externals 配置
 ```js

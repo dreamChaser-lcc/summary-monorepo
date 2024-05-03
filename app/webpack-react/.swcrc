@@ -18,9 +18,10 @@
         "react": {
           "pragma": "React.createElement",
           "pragmaFrag": "React.Fragment",
-          "throwIfNamespace": true,
+          "throwIfNamespace": false,
           "development": false,
-          "useBuiltins": false
+          "useBuiltins": false,
+          "runtime": "automatic"
         }
       },
       "target": "es5",
@@ -33,4 +34,4 @@
        "type": "es6"
     },
     "minify": false
-  }
+}

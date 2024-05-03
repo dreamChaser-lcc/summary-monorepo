@@ -1,4 +1,4 @@
-import React, { lazy, ReactNode, Suspense } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
     // history路由 
