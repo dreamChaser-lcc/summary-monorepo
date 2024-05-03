@@ -47,7 +47,8 @@ module.exports = {
   plugins:[
     new HtmlWebpackPlugin({
       title: 'webpack-react',
-      template: path.resolve(__dirname, '../src/index.html')
+      template: path.resolve(__dirname, '../src/index.html'),
+      favicon: path.resolve(__dirname, '../public/favicon.ico'),
     })
   ],
 }
