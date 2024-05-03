@@ -37,7 +37,14 @@ pnpm run --filter webpack-react build:serve
 ### 安装loader依赖
 处理ts的ts-loader, 兼容es6语法转换的babel-loader, 更多兼容语法的@babel/core (替代了旧版本的polyfill垫片，对promise,generator,等语法转换成能兼容更低版本的代码)
 ```bash
-pnpm add html-webpack-plugin ts-loader @babel/core babel-loader --filter webpack-react
+pnpm add html-webpack-plugin ts-loader @babel/core babel-loader core-js --filter webpack-react
+```
+
+### swc-loader
+用rust编写的低版本兼容转换，会比babel-loader更快很多
+官网：https://swc.rs/docs/configuration/swcrc
+```bash
+pnpm install @swc/core swc-loader --filter webpack-react
 ```
 
 ### postcss-loader 

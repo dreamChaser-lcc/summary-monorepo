@@ -1,9 +1,28 @@
 {
   "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
+    [
+      "@babel/preset-env",
+      {
+        // "targets": {},
+        // "modules": "auto",
+        "useBuiltIns": "usage", // 引入polyfill的方式,usage避免全局挂载引入polyfill代码，全局污染,但没有按需加载，会全量引入
+        "corejs": 3
+      }
+    ],
+    "@babel/preset-react",
+    // [
+    //   "@babel/preset-typescript",
+    //   {
+    //     // "rewriteImportExtensions": true,
+    //     // "ignoreExtensions": true
+    //   }
+    // ]
   ],
   "plugins": [
+    // "@babel/plugin-transform-runtime" // 这个插件解决按需引入polyfill问题，但是v7版本不能和useBuiltIns一起使用，是不是要取舍？暂时疑问
     // "@babel/plugin-proposal-class-properties"
+  ],
+  "include":[
+    "src"
   ]
 }
