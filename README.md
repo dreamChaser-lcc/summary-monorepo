@@ -100,6 +100,14 @@ packages:
 pnpm add @summary/utils --filter webpack-react
 ```
 
+### 批量执行命令
+```bash
+# 批量执行package.json中name为app开头的项目
+pnpm run --filter app* dev
+# or 只安装packages工作空间中的依赖
+pnpm install --recursive --filter packages/*
+```
+
 ### 安装项目依赖
 
 ```bash
