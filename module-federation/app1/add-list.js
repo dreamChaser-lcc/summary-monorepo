@@ -15,7 +15,7 @@ const listObj = [
 
 listObj.forEach(item=>{
     const p = document.createElement('p');
-    p.innerHTML = `微前端解决${team?'框架':'方案'} ${item.name} ${item.team ? ' team: ' + item.team: ''}`;
+    p.innerHTML = `微前端解决${item.time?'框架':'方案'}: ${item.name}。${item.team ? ' team: ' + item.team: ''}${item.time ? '发布时间：' + item.time : ''}`;
     listWrap.appendChild(p);
 });
 
