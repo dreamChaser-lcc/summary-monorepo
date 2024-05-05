@@ -15,7 +15,13 @@
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "commit": "git cz"
   },
-  "keywords": ["monorepo","react","vue","typescript", "micro-app"],
+  "keywords": [
+    "monorepo",
+    "react",
+    "vue",
+    "typescript",
+    "micro-app"
+  ],
   "author": "lcc",
   "license": "ISC",
   "dependencies": {

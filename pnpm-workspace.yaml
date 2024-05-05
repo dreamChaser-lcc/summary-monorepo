@@ -3,6 +3,8 @@ packages:
   - 'packages/*'
   # all packages in subdirs of components/
   - 'app/*'
+  # 模块联邦 module-federation/
+  - 'module-federation/*'
   # all packages in subdirs of components/
   - 'components/**'
   # exclude packages that are inside test directories
