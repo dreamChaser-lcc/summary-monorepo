@@ -49,6 +49,7 @@ summary-monorepo
 │     ├─ postcss.config.js                                                     
 │     ├─ README.md                                                             
 │     └─ tsconfig.json                                                         
+├─ module-federation                                      // 微前端module-federation实践demo
 ├─ packages                                               // monorepo 共享的包，可以在子应用项目通过pnpm add --filter xxx 直接引入                     
 │  └─ utils                                                              
 ├─ .czrc                                                  // commitizen commit提交规范引用插件                  
