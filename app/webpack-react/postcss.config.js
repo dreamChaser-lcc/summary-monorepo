@@ -25,7 +25,7 @@ module.exports = {
     [
       // postcss-px-to-viewport上传到npm这个包的版本较旧,不支持注释取消自动转换;
       // 若要注释取消转换功能用下一个包,或者修改源码再发个包代替
-      "postcss-px-to-viewport",
+      "postcss-px-to-viewport-8-plugin",
       // "@reaf-toolkit/postcss-px-to-viewport",
       {
         unitToConvert: 'px',
