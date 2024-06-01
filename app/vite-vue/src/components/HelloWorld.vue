@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, defineComponent  } from 'vue'
 
 defineProps<{ msg: string }>()
-
+onMounted(()=>{
+  
+})
 const count = ref(0)
 </script>
 

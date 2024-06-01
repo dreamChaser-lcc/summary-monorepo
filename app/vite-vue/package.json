@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "module-federation": "link:module-federation",
     "vue": "^3.4.21",
+    "vue-router": "4",
     "webpack": "^5.91.0"
   },
   "devDependencies": {

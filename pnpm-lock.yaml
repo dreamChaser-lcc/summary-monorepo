@@ -39,12 +39,12 @@ importers:
 
   app/vite-vue:
     dependencies:
-      module-federation:
-        specifier: link:module-federation
-        version: link:module-federation
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.3)
+      vue-router:
+        specifier: '4'
+        version: 4.3.2(vue@3.4.21(typescript@5.4.3))
       webpack:
         specifier: ^5.91.0
         version: 5.91.0
@@ -97,6 +97,9 @@ importers:
       '@types/styled-components':
         specifier: ^5.1.34
         version: 5.1.34
+      add-asset-html-webpack-plugin:
+        specifier: ^6.0.0
+        version: 6.0.0(html-webpack-plugin@5.6.0(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4)))(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4))
       babel-loader:
         specifier: ^9.1.3
         version: 9.1.3(@babel/core@7.24.3)(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4))
@@ -136,6 +139,9 @@ importers:
       postcss-px-to-viewport:
         specifier: ^1.1.1
         version: 1.1.1
+      postcss-px-to-viewport-8-plugin:
+        specifier: ^1.2.5
+        version: 1.2.5
       postcss-pxtorem:
         specifier: ^6.1.0
         version: 6.1.0(postcss@8.4.38)
@@ -252,6 +258,30 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.91.0)
 
+  module-federation/host-app:
+    dependencies:
+      babel-loader:
+        specifier: ^9.1.3
+        version: 9.1.3(@babel/core@7.24.3)(webpack@5.91.0(webpack-cli@5.1.4))
+      css-loader:
+        specifier: ^6.10.0
+        version: 6.10.0(webpack@5.91.0(webpack-cli@5.1.4))
+      html-webpack-plugin:
+        specifier: ^5.6.0
+        version: 5.6.0(webpack@5.91.0(webpack-cli@5.1.4))
+      module-federation:
+        specifier: link:module-federation
+        version: link:module-federation
+      style-loader:
+        specifier: ^3.3.4
+        version: 3.3.4(webpack@5.91.0(webpack-cli@5.1.4))
+      webpack:
+        specifier: ^5.91.0
+        version: 5.91.0(webpack-cli@5.1.4)
+      webpack-cli:
+        specifier: ^5.1.4
+        version: 5.1.4(webpack@5.91.0)
+
   module-federation/react-app:
     dependencies:
       '@testing-library/jest-dom':
@@ -287,21 +317,8 @@ importers:
       '@summary-monorepo/utils':
         specifier: workspace:^
         version: link:../utils
-      module-federation:
-        specifier: link:module-federation
-        version: link:module-federation
-      webpack:
-        specifier: ^5.91.0
-        version: 5.91.0
 
   packages/utils:
-    dependencies:
-      module-federation:
-        specifier: link:module-federation
-        version: link:module-federation
-      webpack:
-        specifier: ^5.91.0
-        version: 5.91.0
     devDependencies:
       rimraf:
         specifier: ^5.0.5
@@ -2361,6 +2378,9 @@ packages:
   '@vue/compiler-ssr@3.4.21':
     resolution: {integrity: sha512-M5+9nI2lPpAsgXOGQobnIueVqc9sisBFexh5yMIMRAPYLa7+5wEJs8iqOZc1WAa9WQbx9GR2twgznU8LTIiZ4Q==}
 
+  '@vue/devtools-api@6.6.2':
+    resolution: {integrity: sha512-134clD8u7cBBXdmBbXI282gHGF7T/eAbD/G7mAK2llQF62IbI4ny28IVamZVMoJSvfImC2Xxnj732hXkJvUj6g==}
+
   '@vue/language-core@1.8.27':
     resolution: {integrity: sha512-L8Kc27VdQserNaCUNiSFdDl9LWT24ly8Hpwf1ECy3aFb9m6bDhBGQYOujDm21N7EW3moKIOKEanQwe1q5BK+mA==}
     peerDependencies:
@@ -2503,6 +2523,13 @@ packages:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  add-asset-html-webpack-plugin@6.0.0:
+    resolution: {integrity: sha512-W5uv10hFCsYFwG6EM2pbV/RqLZT04jiUbR9uAaPSc2LC8XiGkEOfDtBagKzNxEKudK7i3EKWwPaFr8talsEb7g==}
+    engines: {node: ^16.13.0 || ^18.12.0 || >=20.0.0}
+    peerDependencies:
+      html-webpack-plugin: ^4.0.0 || ^5.0.0
+      webpack: ^5.0.0
 
   address@1.2.2:
     resolution: {integrity: sha512-4B/qKCfeE/ODUaAUpSwfzazo5x29WD4r3vXiWsB7I2mSDAihwEqKO+g8GELZUQSSAo5e1XTYh3ZVfLyxBc12nA==}
@@ -6291,6 +6318,9 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
+  postcss-px-to-viewport-8-plugin@1.2.5:
+    resolution: {integrity: sha512-+yc69+q/euV7iKh5fGXY6C/lpepmVx2DGFHeYj5BpzIFyBBpdACDjZyrZ8AV0kCg+J0bplBv4ZA1QTzgaK0rGg==}
+
   postcss-px-to-viewport@1.1.1:
     resolution: {integrity: sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==}
 
@@ -7450,6 +7480,11 @@ packages:
         optional: true
       terser:
         optional: true
+
+  vue-router@4.3.2:
+    resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
+    peerDependencies:
+      vue: ^3.2.0
 
   vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
@@ -10114,6 +10149,8 @@ snapshots:
       '@vue/compiler-dom': 3.4.21
       '@vue/shared': 3.4.21
 
+  '@vue/devtools-api@6.6.2': {}
+
   '@vue/language-core@1.8.27(typescript@5.4.3)':
     dependencies:
       '@volar/language-core': 1.11.1
@@ -10295,6 +10332,13 @@ snapshots:
   acorn@7.4.1: {}
 
   acorn@8.11.3: {}
+
+  add-asset-html-webpack-plugin@6.0.0(html-webpack-plugin@5.6.0(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4)))(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4)):
+    dependencies:
+      globby: 11.1.0
+      html-webpack-plugin: 5.6.0(webpack@5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4))
+      micromatch: 4.0.5
+      webpack: 5.91.0(@swc/core@1.4.17)(webpack-cli@5.1.4)
 
   address@1.2.2: {}
 
@@ -14742,6 +14786,10 @@ snapshots:
       postcss: 8.4.38
       postcss-selector-parser: 6.0.16
 
+  postcss-px-to-viewport-8-plugin@1.2.5:
+    dependencies:
+      object-assign: 4.1.1
+
   postcss-px-to-viewport@1.1.1:
     dependencies:
       object-assign: 4.1.1
@@ -16125,6 +16173,11 @@ snapshots:
       fsevents: 2.3.3
       less: 4.2.0
       terser: 5.29.2
+
+  vue-router@4.3.2(vue@3.4.21(typescript@5.4.3)):
+    dependencies:
+      '@vue/devtools-api': 6.6.2
+      vue: 3.4.21(typescript@5.4.3)
 
   vue-template-compiler@2.7.16:
     dependencies:
