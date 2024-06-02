@@ -1,7 +1,7 @@
 <!--
  * @Author: lcc
  * @Date: 2024-06-01 19:56:05
- * @LastEditTime: 2024-06-01 23:00:16
+ * @LastEditTime: 2024-06-02 22:56:28
  * @LastEditors: lcc
  * @Description: 发布订阅模式（事件总线中心） publish/subscribe 模式
 -->
@@ -78,6 +78,7 @@ const cancelSubscribe = ()=>{
 </script>
 <template>
 <div>
+    <div>结合代码和查看控制台进行调试</div>
     <button @click="subscribe">订阅</button>
     <button @click="cancelSubscribe">取消订阅added</button>
     <button @click="emitAdd">发布added</button>

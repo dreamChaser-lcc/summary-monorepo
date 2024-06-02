@@ -1,13 +1,10 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <div>
-    这里是APP页面
+    <router-view></router-view>
   </div>
-  
-  <router-view></router-view>
 </template>
 
 <style scoped>

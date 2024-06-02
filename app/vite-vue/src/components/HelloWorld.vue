@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineComponent  } from 'vue'
+import { ref, onMounted  } from 'vue'
 
 defineProps<{ msg: string }>()
 onMounted(()=>{

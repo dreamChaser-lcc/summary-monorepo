@@ -1,7 +1,7 @@
 <!--
  * @Author: lcc
  * @Date: 2024-06-01 23:00:42
- * @LastEditTime: 2024-06-01 23:25:37
+ * @LastEditTime: 2024-06-02 22:56:17
  * @LastEditors: lcc
  * @Description: 观察者模式 (舔狗模式 要等发布者同意放到通知名单才会通知你向你撒网)  
 -->
@@ -63,6 +63,7 @@ const publishMessage = ()=>{
 </script>
 <template>
     <div>
+        <div>结合代码和查看控制台进行调试</div>
         <button @click="addSubscribe">添加观察者到发布者通知名单中</button>
         <button @click="publishMessage">发布者要发布消息啦</button>
     </div>
