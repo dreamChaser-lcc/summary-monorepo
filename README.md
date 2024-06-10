@@ -181,6 +181,16 @@ husky init
 # 4.添加git hooks钩子文件，在.husky/commit-msg中添加内容,会执行commitlint.config.js中的配置
 npx --no -- commitlint --edit $1
 ```
+在package.json中添加脚本
+```json
+// prepare是会在pnpm install 安装依赖之后执行的脚本,确保每次重新拉取项目的时候，都初始化husky，不然husky定义hooks不会被执行！！！非常重要！！！
+// 和prepare脚本会被pnpm install命令隐形触发的脚本还有，preinstall,install,postinstall,相当于pnpm install执行程序的一个生命周期！！！
+{
+  "scripts":{
+    "prepare": "husky"
+  }
+}
+```
 
 #### 添加commitlint配置文件
 ```js

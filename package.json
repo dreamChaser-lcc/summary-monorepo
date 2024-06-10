@@ -13,7 +13,8 @@
     "dev": "pnpm run -r -w --filter webpack-react dev",
     "all-dev": "pnpm run dev --filter packages/*",
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
-    "commit": "git cz"
+    "commit": "git cz",
+    "prepare": "husky"
   },
   "keywords": [
     "monorepo",
