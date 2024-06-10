@@ -10,6 +10,14 @@ export const routes:RouteRecordRaw[] = [
     { path: '/observer-mode', name:'observer-mode', component: ()=>import('@/view/observer-mode/index.vue'), meta:{ title: '观察者模式' }},
     // pinia和vuex状态管理使用
     { path: '/store-use', name:'store-use', component: ()=>import('@/view/store-use/index.vue'), meta:{ title: 'pinia和vuex状态管理' }},
+    { 
+        path: '/tailwind-use',
+        name:'tailwind-use', 
+        component: ()=>import('@/view/tailwind-use/index.vue'), 
+        meta:{ 
+            title: 'tailwind引入'
+        }
+    },
 ]
 
 export const router = createRouter({

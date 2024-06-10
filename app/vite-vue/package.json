@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tailwind:dev": "vite && npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwindcss/output.css --watch"
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "tailwindcss": "^3.4.3",
     "vue": "^3.4.21",
     "vue-router": "4",
     "vuex": "^4.0.2",

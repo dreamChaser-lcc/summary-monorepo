@@ -11,7 +11,6 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 import { useStore } from 'vuex'
 
-
 const store = useUserInfoStore();
 const store1 = useUserInfo1Store();
 console.log("🚀 ~ store1:", store1)
