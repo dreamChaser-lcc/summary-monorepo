@@ -14,7 +14,8 @@
     "all-dev": "pnpm run dev --filter packages/*",
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "commit": "git cz",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prettier:test": "npx prettier ./app/vite-vue/src/main.ts --write"
   },
   "keywords": [
     "monorepo",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
-    "cz-conventional-changelog-chinese": "^2.3.0"
+    "cz-conventional-changelog-chinese": "^2.3.0",
+    "prettier": "3.3.1"
   }
 }

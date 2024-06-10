@@ -1,0 +1,19 @@
+{
+  // 两个空格缩进
+  "editor.tabSize": 2,
+  // "editor.defaultFormatter": "esbenp.prettier-vscode1",
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // prettier 在项目中的配置路径
+  "prettier.configPath": ".prettierrc.js",
+}

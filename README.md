@@ -270,3 +270,80 @@ pnpm install -w cz-conventional-changelog-chinese
   }
 }
 ```
+
+### 配置prettier
+- 可以和husky和lint-staged结合使用
+- lint-staged 是一个在git暂存文件上运行linters的工具
+- husky是可以定义git hooks的工具，即定义git生命周期过程中执行的命令，比如提交前执行代码检查和格式化
+
+#### 安装
+```bash
+pnpm add -w prettier --save-dev
+```
+#### 添加配置文件
+.prettierrc.js文件
+```js
+// .prettierrc.js
+/** @type {import("prettier").Config} */
+const config = {
+  trailingComma: 'es5',
+  printWidth: 100, //单行长度
+  tabWidth: 2, //缩进长度
+  useTabs: false, //使用空格代替tab缩进
+  semi: true, //句末使用分号
+  singleQuote: true, //使用单引号
+  quoteProps: 'as-needed', //仅在必需时为对象的key添加引号
+  jsxSingleQuote: true, // jsx中使用单引号
+  trailingComma: 'all', //多行时尽可能打印尾随逗号
+  bracketSpacing: true, //在对象前后添加空格-eg: { foo: bar }
+  arrowParens: 'always', //单参数箭头函数参数周围使用圆括号-eg: (x) => x
+  requirePragma: false, //无需顶部注释即可格式化
+  insertPragma: false, //在已被preitter格式化的文件顶部加上标注
+  proseWrap: 'preserve',
+  htmlWhitespaceSensitivity: 'ignore', //对HTML全局空白不敏感
+  vueIndentScriptAndStyle: false, //不对vue中的script及style标签缩进
+  endOfLine: 'lf', //结束行形式
+  embeddedLanguageFormatting: 'auto', //对引用代码进行格式化
+}
+
+module.exports = config
+```
+.prettierignore 忽略配置prettier执行的文件
+```
+# Ignore artifacts:
+build
+dist
+coverage
+
+# Ignore all HTML files:
+**/*.html
+*.yml
+*.yaml
+```
+#### vscode配置
+- 一定要"[javascript]"的指定方式配置，因为这个有可能会被默认配置覆盖，这样指定优先级最高！
+- configPatch配置项`值`或者`配置文件中的内容`改变，需要`重新启动`vscode生效，或者 ctrl+shift+p输入`reload window`
+
+```json
+// settings.json文件
+// .vscode/settings.json
+{
+  // 两个空格缩进
+  "editor.tabSize": 2,
+  // "editor.defaultFormatter": "esbenp.prettier-vscode1",
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // prettier 在项目中的配置路径
+  "prettier.configPath": ".prettierrc.js",
+}
+```
