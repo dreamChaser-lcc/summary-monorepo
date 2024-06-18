@@ -18,6 +18,8 @@ export const routes:RouteRecordRaw[] = [
             title: 'tailwind引入'
         }
     },
+    // 分片上传
+    { path: '/split-upload', name:'split-upload', component: ()=>import('@/view/split-upload/index.vue'), meta:{ title: '分片上传' }},
 ]
 
 export const router = createRouter({

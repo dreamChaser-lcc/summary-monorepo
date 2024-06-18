@@ -1,19 +1,22 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
 import { router } from '@/router/index';
 import { createPinia } from 'pinia';
 import { myPiniaPlugin, localStoragePlugin } from '@/store/piniaPlugin';
 import { vuexStore } from '@store/vuexStore';
+import MButton from '@components/m-button/index.vue';
+
 import './tailwindcss/output.css';
 
 const app = createApp(App);
-const pinia = createPinia()
+const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
 app.use(vuexStore);
 
+app.component('m-button', MButton);
 pinia.use(myPiniaPlugin);
 
 app.mount('#app');
