@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import MLayout from '@components/m-layout/index.vue';
+// const longText = Array.from({ length: 5000 }, (_) => '长').join('');
 </script>
 <template>
   <div>
-    <MLayout>
-      <template #summary>这里是代码概括总结</template>
-      <template #content>这里是内容</template>
-    </MLayout>
+    <m-layout>
+      <template #summary>这里是代码概述总结</template>
+      <template #content>这里是内容示例</template>
+    </m-layout>
   </div>
 </template>
 <style lang="scss" scoped></style>

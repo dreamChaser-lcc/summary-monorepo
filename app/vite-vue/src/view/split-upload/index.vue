@@ -1,12 +1,13 @@
 <!--
  * @Author: lcc
  * @Date: 2024-06-10 19:38:45
- * @LastEditTime: 2024-06-19 00:57:29
+ * @LastEditTime: 2024-06-20 03:13:41
  * @LastEditors: lcc
  * @Description: 分片上传文件，暂时没有做断点续传
 -->
 
 <script lang="ts" setup>
+import MLayout from '@components/m-layout/index.vue';
 import { onMounted, ref } from 'vue';
 
 const imgFile = ref<File>();
@@ -86,26 +87,32 @@ const fetchUploadSlice = () => {
 };
 </script>
 <template>
-  <div>
-    <div>分片上传</div>
-    <input
-      type="file"
-      @change="onFileChange"
-      id="fileElem"
-      multiple
-      accept="image/*"
-      class="visually-hidden"
-    />
-    <label for="fileElem">
-      <m-button style="pointer-events: none">选择一些文件</m-button>
-    </label>
-    <m-button @click="handleSplitFile">文件拆分</m-button>
-    <m-button @click="mergeFile">文件合并(图片)</m-button>
-    <m-button @click="fetchUploadSlice">发送请求</m-button>
-    <div class="merge-img-area">
-      <img id="merge-img-id" src="" alt="合并后展示图片占位区" />
-    </div>
-  </div>
+  <m-layout>
+    <template #summary>
+      <ul>
+        <li>web worker 多线程</li>
+      </ul>
+    </template>
+    <template #content>
+      <input
+        type="file"
+        @change="onFileChange"
+        id="fileElem"
+        multiple
+        accept="image/*"
+        class="visually-hidden"
+      />
+      <label for="fileElem">
+        <m-button style="pointer-events: none">选择一些文件</m-button>
+      </label>
+      <m-button @click="handleSplitFile">文件拆分</m-button>
+      <m-button @click="mergeFile">文件合并(图片)</m-button>
+      <m-button @click="fetchUploadSlice">发送请求</m-button>
+      <div class="merge-img-area">
+        <img id="merge-img-id" src="" alt="合并后展示图片占位区" />
+      </div>
+    </template>
+  </m-layout>
 </template>
 <style lang="scss" scoped>
 .visually-hidden {

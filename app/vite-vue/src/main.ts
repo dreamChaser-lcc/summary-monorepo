@@ -6,6 +6,7 @@ import { createPinia } from 'pinia';
 import { myPiniaPlugin, localStoragePlugin } from '@/store/piniaPlugin';
 import { vuexStore } from '@store/vuexStore';
 import MButton from '@components/m-button/index.vue';
+import MLayout from '@components/m-layout/index.vue';
 
 import './tailwindcss/output.css';
 
@@ -17,6 +18,7 @@ app.use(pinia);
 app.use(vuexStore);
 
 app.component('m-button', MButton);
+app.component('m-layout', MLayout);
 pinia.use(myPiniaPlugin);
 
 app.mount('#app');

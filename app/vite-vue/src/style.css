@@ -59,10 +59,21 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
+}
+
+#app ::-webkit-scrollbar {
+  width: 10px; /* 滚动条宽度 */
+  height: 10px; /* 滚动条高度 */
+  background-color: #f0f0f0; /* 滚动条轨道颜色 */
+}
+
+#app ::-webkit-scrollbar-thumb {
+  background-color: #888; /* 滚动条滑块颜色 */
+  border-radius: 5px; /* 滚动条滑块圆角 */
 }
 
 @media (prefers-color-scheme: light) {
