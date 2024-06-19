@@ -16,4 +16,28 @@
   },
   // prettier 在项目中的配置路径
   "prettier.configPath": ".prettierrc.js",
+  // 头文件注释配置，配置https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+  "fileheader.configObj": {
+    "createFileTime": true,
+    "autoAdd": false,
+    "autoAddLine": 100,
+    "autoAlready": true,
+    "supportAutoLanguage": [],
+    "prohibitAutoAdd": ["json"],
+    "folderBlacklist": [
+      "node_modules",
+    ],
+    "moveCursor": true,
+    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+    "filePathColon": "/",
+    "functionTypeSymbol": "*",
+    "throttleTime": 60000,
+  },
+  "fileheader.customMade": {
+    "Date": "Do not edit", // 文件创建时间(不变)
+    "LastEditors": "git config user.name", 
+    "LastEditTime": "Do not edit", // 文件最后编辑时间
+    "FilePath": "Do not edit", // 文件在项目中的相对路径 自动更新
+    "Description": "" // 项目描述
+  },
 }
