@@ -2,8 +2,8 @@ import {
   createRouter,
   createWebHashHistory,
   RouteRecordRaw,
-  createMemoryHistory,
-  createWebHistory,
+  //   createMemoryHistory,
+  //   createWebHistory,
 } from 'vue-router';
 import HelloWorld from '@/components/HelloWorld.vue';
 
