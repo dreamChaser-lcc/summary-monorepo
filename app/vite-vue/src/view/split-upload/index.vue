@@ -1,7 +1,7 @@
 <!--
  * @Author: lcc
  * @Date: 2024-06-10 19:38:45
- * @LastEditTime: 2024-06-22 23:35:08
+ * @LastEditTime: 2024-06-25 23:18:16
  * @LastEditors: lcc
  * @Description: 分片上传文件，暂时没有做断点续传
 -->
@@ -115,7 +115,14 @@ const fetchUploadSlice = () => {
   <m-layout>
     <template #summary>
       <ul>
-        <li>web worker 多线程</li>
+        <li>相关方案点：</li>
+        <li>
+          web worker 多线程使用，注意引入 new Worker(new URL('./components/worker-md5/worker.js',
+          import.meta.url))
+        </li>
+        <li>blob格式slice分片</li>
+        <li>Promise控制并发数量原理(队列机制)</li>
+        <li>文件的读写</li>
       </ul>
     </template>
     <template #content>

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-19 16:00:12
  * @LastEditors: lcc
- * @LastEditTime: 2024-06-20 03:10:12
+ * @LastEditTime: 2024-06-25 23:26:32
  * @FilePath: /summary-monorepo/app/vite-vue/src/components/m-layout/index.vue
  * @Description: 展示代码布局组件
 -->
@@ -9,12 +9,18 @@
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+console.log('🚀 ~ route:', route);
 const title = route.meta?.title;
+const gitAddress = `https://github.com/dreamChaser-lcc/summary-monorepo/blob/main/app/vite-vue/src/view${route.path}/index.vue`;
 </script>
 <template>
   <div class="m-layout-wrap">
     <div v-if="$slots.summary" class="m-layout-summary">
-      <span class="title">{{ title }}概述：</span>
+      <span class="title">
+        {{ title }}概述 (
+        <a :href="gitAddress" target="_blank">点我查看源码</a>
+        )：
+      </span>
       <div class="split-line"></div>
       <div class="m-layout-summary-content">
         <slot name="summary"></slot>
