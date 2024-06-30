@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "tailwind:dev": "vite && npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwindcss/output.css --watch"
+    "tailwind:dev": "vite && npx tailwindcss -i ./src/tailwind/input.css -o ./src/tailwindcss/output.css --watch",
+    "build:serve": "pnpm serve ./dist"
   },
   "dependencies": {
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
     "lodash-es": "^4.17.21",
     "p-limit": "^5.0.0",
     "pinia": "^2.1.7",

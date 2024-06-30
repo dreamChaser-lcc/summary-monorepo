@@ -2,8 +2,8 @@ import {
   createRouter,
   createWebHashHistory,
   RouteRecordRaw,
-  //   createMemoryHistory,
-  //   createWebHistory,
+  // createMemoryHistory,
+  createWebHistory,
 } from 'vue-router';
 import HelloWorld from '@/components/HelloWorld.vue';
 
@@ -52,12 +52,24 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/view/layout-sample/index.vue'),
     meta: { title: '布局组件调试' },
   },
+  {
+    path: '/tsx-example',
+    name: 'tsx-example',
+    component: () => import('@/view/tsx-example'),
+    meta: { title: '在vue中使用tsx语法' },
+  },
+  {
+    path: '/proxy-sample',
+    name: 'proxy-sample',
+    component: () => import('@/view/proxy-sample/index.vue'),
+    meta: { title: '微前端qiankunjs隔离方案demo' },
+  },
 ];
 
 export const router = createRouter({
-  // history: createWebHistory(),     刷新后需要重定向到入口路径
+  history: createWebHistory(), // 刷新后需要重定向到入口路径
   // history: createMemoryHistory(),  没有回退记录
-  history: createWebHashHistory(),
+  // history: createWebHashHistory(),
   routes,
 });
 

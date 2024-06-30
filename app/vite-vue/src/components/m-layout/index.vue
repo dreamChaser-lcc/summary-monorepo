@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-19 16:00:12
  * @LastEditors: lcc
- * @LastEditTime: 2024-06-25 23:26:32
+ * @LastEditTime: 2024-06-25 23:39:32
  * @FilePath: /summary-monorepo/app/vite-vue/src/components/m-layout/index.vue
  * @Description: 展示代码布局组件
 -->
@@ -9,7 +9,6 @@
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-console.log('🚀 ~ route:', route);
 const title = route.meta?.title;
 const gitAddress = `https://github.com/dreamChaser-lcc/summary-monorepo/blob/main/app/vite-vue/src/view${route.path}/index.vue`;
 </script>

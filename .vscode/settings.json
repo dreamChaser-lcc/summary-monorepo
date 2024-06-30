@@ -10,6 +10,10 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[vue]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -40,4 +44,8 @@
     "FilePath": "Do not edit", // 文件在项目中的相对路径 自动更新
     "Description": "" // 项目描述
   },
+  "indentRainbow.indicatorStyle": "light",
+  "indentRainbow.ignoreErrorLanguages": [
+    "markdown"
+  ]
 }
