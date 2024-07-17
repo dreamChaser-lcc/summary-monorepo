@@ -7,6 +7,7 @@ import { myPiniaPlugin, localStoragePlugin } from '@/store/piniaPlugin';
 import { vuexStore } from '@store/vuexStore';
 import MButton from '@components/m-button/index.vue';
 import MLayout from '@components/m-layout/index.vue';
+// import { vLazy } from './directive';
 
 import './tailwindcss/output.css';
 
@@ -16,6 +17,8 @@ const pinia = createPinia();
 app.use(router);
 app.use(pinia);
 app.use(vuexStore);
+
+// app.directive('lazy', vLazy);
 
 app.component('m-button', MButton);
 app.component('m-layout', MLayout);

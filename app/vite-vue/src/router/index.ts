@@ -64,6 +64,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/view/proxy-sample/index.vue'),
     meta: { title: '微前端qiankunjs隔离方案demo' },
   },
+  {
+    path: '/vue-api-usage',
+    name: 'vue-api-usage',
+    component: () => import('@/view/vue-api-usage/index.vue'),
+    meta: { title: 'vue模式api使用' },
+  },
 ];
 
 export const router = createRouter({

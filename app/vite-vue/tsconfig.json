@@ -27,6 +27,7 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@store/*": ["src/store/*"],
+      "@directive/*": ["src/directive/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue",],
