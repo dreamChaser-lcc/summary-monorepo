@@ -271,6 +271,11 @@ pnpm install -w cz-conventional-changelog-chinese
 }
 ```
 
+#### 自定义提交提示语（cz-customizable）
+可以参考下以下的链接
+- https://www.npmjs.com/package/cz-customizable
+- https://juejin.cn/post/7421547883378589715
+
 ### 配置prettier
 - 可以和husky和lint-staged结合使用
 - lint-staged 是一个在git暂存文件上运行linters的工具
