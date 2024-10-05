@@ -10,6 +10,7 @@ export default defineConfig({
       { find: '@', replacement: '/src' },
       { find: '@components', replacement: '/src/components' },
       { find: '@store', replacement: '/src/store' },
+      { find: '@directive', replacement: '/src/directive' },
     ],
   },
   server: {
