@@ -1,0 +1,12 @@
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    // "@babel/plugin-transform-runtime" // 这个插件解决按需引入polyfill问题，但是v7版本不能和useBuiltIns一起使用，是不是要取舍？暂时疑问
+    // "@babel/plugin-proposal-class-properties"
+    "./babelPlugins/test.js"
+  ],
+  "include":[
+    "**/*.js",
+    "./babelPlugins"
+  ]
+}
