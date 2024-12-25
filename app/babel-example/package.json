@@ -19,6 +19,7 @@
   "dependencies": {
     "@babel/generator": "^7.26.2",
     "@babel/parser": "^7.26.2",
-    "@babel/traverse": "^7.25.9"
+    "@babel/traverse": "^7.25.9",
+    "@vue/compiler-dom": "^3.5.13"
   }
 }
