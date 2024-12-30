@@ -1,14 +1,15 @@
 import { parse } from '@vue/compiler-sfc';
 import { parse as parse2vue } from '@vue/compiler-dom';
 import { parse as babelParse } from '@babel/parser';
-import traverse from "@babel/traverse";
+import traverse, { NodePath } from "@babel/traverse";
 import generator from '@babel/generator';
-import t from '@babel/types';
+import * as t from '@babel/types';
 import { writeFile } from 'fs';
-import fs from 'fs';
+import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, resolve, join } from 'path';
 
+// module 模块化写法
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -105,7 +106,7 @@ function jsTraverse(t) {
     plugins: ['jsx', 'typescript'], // 根据需要添加插件
   });
   // console.log("🚀 ~ jsTraverse ~ traverse:", traverse)
-  traverse.default(ast, visitor);
+  traverse(ast, visitor);
 }
 // jsTraverse()
 
@@ -173,8 +174,8 @@ function parseJsx() {
   const filePath = join(__dirname, `/ast/ast-jsx-${new Date().getTime()}.json`);
   // writeFileIn(filePath, ast)
   // console.log(JSON.stringify(ast, null, 2));
-  traverse.default(ast, {
-    JSXAttribute(path) {
+  traverse(ast, {
+    JSXAttribute(path: NodePath<t.JSXAttribute>) {
        // 创建一个调用表达式
       const callExpression = t.callExpression(
         t.identifier('console.log'),
@@ -183,10 +184,10 @@ function parseJsx() {
 
       // 在函数声明前插入调用表达式
       path.insertBefore(t.expressionStatement(callExpression));
-      console.log("🚀 ~ 1 ~ JSXAttribute:", path.value)
+      console.log("🚀 ~ 1 ~ JSXAttribute:", path.node)
     }
   });
-  const { code: generatedCode } = generator.default(ast, {
+  const { code: generatedCode } = generator(ast, {
     compact: false, // 生成格式化的代码
     comments: true  // 保留注释
   });
