@@ -1,0 +1,29 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": ["./index.ts"],
+    "plugin": [
+    ],
+    "out": "docs",
+    "lang": "zh",
+    "locales": {
+        "en": {
+            "theme_implements": "Implements",
+            "Parameters": "Parameters",
+            "Returns": "Returns"
+        },
+        "zh": {
+            "theme_implements": "实现",
+            "Parameters": "参数",
+            "Returns": "返回值"
+        }
+    },
+    "hideGenerator": true,
+    "disableSources": true,
+    "navigation": {
+        "includeCategories": false,
+        "includeGroups": false,
+        "includeFolders": false,
+        "compactFolders": false,
+        "excludeReferences": false
+    },
+}
