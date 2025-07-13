@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 图标系统 - Icon Font 替代方案</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>SVG 图标系统演示</h1>
+        <p>这是一个完整的 SVG 图标系统，可以替代传统的 Icon Font</p>
+
+        <!-- SVG 图标定义 -->
+        <svg style="display: none;">
+            <defs>
+                <!-- 首页图标 -->
+                <symbol id="icon-home" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </symbol>
+
+                <!-- 用户图标 -->
+                <symbol id="icon-user" viewBox="0 0 24 24">
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </symbol>
+
+                <!-- 设置图标 -->
+                <symbol id="icon-settings" viewBox="0 0 24 24">
+                    <path
+                        d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z" />
+                </symbol>
+
+                <!-- 搜索图标 -->
+                <symbol id="icon-search" viewBox="0 0 24 24">
+                    <path
+                        d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                </symbol>
+
+                <!-- 心形图标 -->
+                <symbol id="icon-heart" viewBox="0 0 24 24">
+                    <path
+                        d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z" />
+                </symbol>
+
+                <!-- 关闭图标 -->
+                <symbol id="icon-close" viewBox="0 0 24 24">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </symbol>
+
+                <!-- 多路径图标 - 通知 -->
+                <symbol id="icon-notification" viewBox="0 0 24 24">
+                    <!-- 铃铛主体 -->
+                    <path
+                        d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+                        fill="#2196F3" />
+                    <!-- 通知数量圆点 -->
+                    <circle cx="18" cy="6" r="3" fill="#FF5252" />
+                </symbol>
+
+                <!-- 多路径图标 - 天气 -->
+                <symbol id="icon-weather" viewBox="0 0 24 24">
+                    <!-- 太阳 -->
+                    <circle cx="12" cy="12" r="5" fill="#FFC107" />
+                    <!-- 云朵 -->
+                    <path
+                        d="M3.5,18.5h9c1.93,0,3.5-1.57,3.5-3.5c0-1.66-1.16-3.05-2.74-3.41C13.08,8.94,11.16,7,8.5,7C5.46,7,3,9.46,3,12.5 c0,0.1,0,0.21,0.02,0.31C1.84,13.37,1,14.86,1,16.5C1,17.6,2.4,18.5,3.5,18.5z"
+                        fill="#BBDEFB" fill-opacity="0.8" />
+                </symbol>
+
+                <!-- 多路径图标 - 主题 -->
+                <symbol id="icon-theme" viewBox="0 0 24 24">
+                    <!-- 调色板 -->
+                    <path
+                        d="M12,2C6.49,2,2,6.49,2,12s4.49,10,10,10c1.38,0,2.5-1.12,2.5-2.5c0-0.61-0.23-1.2-0.64-1.67 c-0.08-0.1-0.13-0.21-0.13-0.33c0-0.28,0.22-0.5,0.5-0.5H16c3.31,0,6-2.69,6-6C22,6.04,17.51,2,12,2z"
+                        fill="#9C27B0" />
+                    <!-- 颜色点 -->
+                    <circle cx="7" cy="9" r="2" fill="#F44336" />
+                    <circle cx="9" cy="15" r="2" fill="#4CAF50" />
+                    <circle cx="15" cy="9" r="2" fill="#2196F3" />
+                </symbol>
+
+                <!-- 动态颜色多路径图标 - 星星 -->
+                <symbol id="icon-star-dynamic" viewBox="0 0 24 24">
+                    <!-- 星星主体 -->
+                    <path d="M12,2l3.09,6.26L22,9.27l-5,4.87L18.18,22L12,18.77L5.82,22L7,14.14L2,9.27l6.91-1.01L12,2z"
+                        fill="currentColor" />
+                    <!-- 星星内部高光 -->
+                    <path d="M12,6l1.5,3L16,9.5l-2.5,2.4L14,15l-2-1.2L10,15l0.5-3.1L8,9.5l2.5-0.5L12,6z"
+                        fill="var(--icon-secondary-color, rgba(255,255,255,0.3))" />
+                </symbol>
+
+                <!-- 动态颜色多路径图标 - 邮件 -->
+                <symbol id="icon-mail-dynamic" viewBox="0 0 24 24">
+                    <!-- 邮件主体 -->
+                    <path d="M20,4H4C2.9,4,2,4.9,2,6v12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z"
+                        fill="currentColor" />
+                    <!-- 邮件内容区域 -->
+                    <path d="M20,8l-8,5L4,8V6l8,5l8-5V8z" fill="var(--icon-secondary-color, rgba(255,255,255,0.8))" />
+                </symbol>
+
+                <!-- 渐变色定义 -->
+                <linearGradient id="gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--gradient-start, #3498db)" />
+                    <stop offset="100%" stop-color="var(--gradient-end, #2980b9)" />
+                </linearGradient>
+
+                <linearGradient id="gradient-secondary" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--gradient-secondary-start, rgba(255,255,255,0.8))" />
+                    <stop offset="100%" stop-color="var(--gradient-secondary-end, rgba(255,255,255,0.3))" />
+                </linearGradient>
+
+                <radialGradient id="gradient-radial" cx="50%" cy="30%" r="70%">
+                    <stop offset="0%" stop-color="var(--gradient-center, #ffffff)"
+                        stop-opacity="var(--gradient-center-opacity, 0.8)" />
+                    <stop offset="100%" stop-color="var(--gradient-edge, #000000)"
+                        stop-opacity="var(--gradient-edge-opacity, 0.1)" />
+                </radialGradient>
+
+                <!-- 渐变色星星图标 -->
+                <symbol id="icon-star-gradient" viewBox="0 0 24 24">
+                    <!-- 星星主体使用线性渐变 -->
+                    <path d="M12,2l3.09,6.26L22,9.27l-5,4.87L18.18,22L12,18.77L5.82,22L7,14.14L2,9.27l6.91-1.01L12,2z"
+                        fill="url(#gradient-primary)" />
+                    <!-- 星星内部高光使用径向渐变 -->
+                    <path d="M12,6l1.5,3L16,9.5l-2.5,2.4L14,15l-2-1.2L10,15l0.5-3.1L8,9.5l2.5-0.5L12,6z"
+                        fill="url(#gradient-radial)" />
+                </symbol>
+
+                <!-- 渐变色心形图标 -->
+                <symbol id="icon-heart-gradient" viewBox="0 0 24 24">
+                    <path
+                        d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z"
+                        fill="url(#gradient-primary)" />
+                </symbol>
+
+                <!-- 渐变色盾牌图标 -->
+                <symbol id="icon-shield-gradient" viewBox="0 0 24 24">
+                    <!-- 盾牌外框 -->
+                    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"
+                        fill="url(#gradient-primary)" />
+                    <!-- 盾牌内部装饰 -->
+                    <path d="M12,7L9,10L10.5,11.5L12,10L15,13L16.5,11.5L12,7Z" fill="url(#gradient-secondary)" />
+                </symbol>
+
+                <!-- 新增：渐变色圆形图标 -->
+                <symbol id="icon-circle-gradient" viewBox="0 0 24 24">
+                    <!-- 圆形主体使用径向渐变 -->
+                    <circle cx="12" cy="12" r="10" fill="url(#gradient-radial)" />
+                    <!-- 圆形内部装饰使用线性渐变 -->
+                    <circle cx="12" cy="12" r="5" fill="url(#gradient-primary)" />
+                </symbol>
+
+                <!-- 新增：渐变色铃铛图标 -->
+                <symbol id="icon-bell-gradient" viewBox="0 0 24 24">
+                    <!-- 铃铛主体使用线性渐变 -->
+                    <path
+                        d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+                        fill="url(#gradient-primary)" />
+                    <!-- 铃铛内部使用径向渐变 -->
+                    <circle cx="12" cy="11" r="3" fill="url(#gradient-radial)" />
+                </symbol>
+
+                <!-- 新增：渐变色气泡图标 -->
+                <symbol id="icon-bubble-gradient" viewBox="0 0 24 24">
+                    <!-- 气泡主体使用线性渐变 -->
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+                        fill="url(#gradient-primary)" />
+                    <!-- 气泡内部使用径向渐变 -->
+                    <circle cx="12" cy="10" r="4" fill="url(#gradient-radial)" />
+                </symbol>
+            </defs>
+        </svg>
+
+        <div class="demo-section">
+            <h2>基础图标使用</h2>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-home"></use>
+                    </svg>
+                    <span>首页</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-user"></use>
+                    </svg>
+                    <span>用户</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-settings"></use>
+                    </svg>
+                    <span>设置</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-search"></use>
+                    </svg>
+                    <span>搜索</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-heart"></use>
+                    </svg>
+                    <span>收藏</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon">
+                        <use href="#icon-close"></use>
+                    </svg>
+                    <span>关闭</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>不同尺寸</h2>
+            <div class="size-demo">
+                <svg class="icon icon-small">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-medium">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-large">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-xl">
+                    <use href="#icon-heart"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>不同颜色</h2>
+            <div class="color-demo">
+                <svg class="icon icon-primary">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-success">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-warning">
+                    <use href="#icon-heart"></use>
+                </svg>
+                <svg class="icon icon-danger">
+                    <use href="#icon-heart"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>按钮中的图标</h2>
+            <div class="button-demo">
+                <button class="btn btn-primary">
+                    <svg class="icon">
+                        <use href="#icon-home"></use>
+                    </svg>
+                    首页
+                </button>
+
+                <button class="btn btn-secondary">
+                    <svg class="icon">
+                        <use href="#icon-search"></use>
+                    </svg>
+                    搜索
+                </button>
+
+                <button class="btn btn-danger">
+                    <svg class="icon">
+                        <use href="#icon-close"></use>
+                    </svg>
+                    删除
+                </button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>动画效果</h2>
+            <div class="animation-demo">
+                <svg class="icon icon-animated-spin">
+                    <use href="#icon-settings"></use>
+                </svg>
+
+                <svg class="icon icon-animated-pulse">
+                    <use href="#icon-heart"></use>
+                </svg>
+
+                <svg class="icon icon-animated-bounce">
+                    <use href="#icon-home"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>多路径彩色图标</h2>
+            <p>多路径SVG图标可以实现更复杂的图形和多色效果</p>
+            <div class="multipath-demo">
+                <div class="icon-item">
+                    <svg class="icon icon-large">
+                        <use href="#icon-notification"></use>
+                    </svg>
+                    <span>通知</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon icon-large">
+                        <use href="#icon-weather"></use>
+                    </svg>
+                    <span>天气</span>
+                </div>
+
+                <div class="icon-item">
+                    <svg class="icon icon-large">
+                        <use href="#icon-theme"></use>
+                    </svg>
+                    <span>主题</span>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <h3>多路径图标代码示例</h3>
+                <pre><code>&lt;!-- 多路径图标定义 --&gt;
+ &lt;symbol id="icon-notification" viewBox="0 0 24 24"&gt;
+     &lt;!-- 铃铛主体 --&gt;
+     &lt;path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" 
+           fill="#2196F3"/&gt;
+     &lt;!-- 通知数量圆点 --&gt;
+     &lt;circle cx="18" cy="6" r="3" fill="#FF5252"/&gt;
+ &lt;/symbol&gt;
+ 
+ &lt;!-- 使用多路径图标 --&gt;
+ &lt;svg class="icon"&gt;
+     &lt;use href="#icon-notification"&gt;&lt;/use&gt;
+ &lt;/svg&gt;</code></pre>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>动态颜色多路径图标</h2>
+            <p>使用 currentColor 和 CSS 变量实现多路径图标的动态颜色控制</p>
+
+            <div class="dynamic-color-demo">
+                <div class="color-control-group">
+                    <h3>星星图标 - 不同颜色</h3>
+                    <div class="dynamic-icons-row">
+                        <div class="icon-item" style="color: #FFD700; --icon-secondary-color: rgba(255,255,255,0.5);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-star-dynamic"></use>
+                            </svg>
+                            <span>金色</span>
+                        </div>
+
+                        <div class="icon-item" style="color: #E74C3C; --icon-secondary-color: rgba(255,255,255,0.4);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-star-dynamic"></use>
+                            </svg>
+                            <span>红色</span>
+                        </div>
+
+                        <div class="icon-item" style="color: #3498DB; --icon-secondary-color: rgba(255,255,255,0.3);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-star-dynamic"></use>
+                            </svg>
+                            <span>蓝色</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="color-control-group">
+                    <h3>邮件图标 - 不同颜色</h3>
+                    <div class="dynamic-icons-row">
+                        <div class="icon-item" style="color: #2ECC71; --icon-secondary-color: rgba(255,255,255,0.9);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-mail-dynamic"></use>
+                            </svg>
+                            <span>绿色</span>
+                        </div>
+
+                        <div class="icon-item" style="color: #9B59B6; --icon-secondary-color: rgba(255,255,255,0.8);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-mail-dynamic"></use>
+                            </svg>
+                            <span>紫色</span>
+                        </div>
+
+                        <div class="icon-item" style="color: #F39C12; --icon-secondary-color: rgba(255,255,255,0.7);">
+                            <svg class="icon icon-large">
+                                <use href="#icon-mail-dynamic"></use>
+                            </svg>
+                            <span>橙色</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h3>交互式颜色控制</h3>
+                    <div class="color-controls">
+                        <div class="control-item">
+                            <label for="primary-color">主色调:</label>
+                            <input type="color" id="primary-color" value="#3498db">
+                        </div>
+                        <div class="control-item">
+                            <label for="secondary-opacity">次要颜色透明度:</label>
+                            <input type="range" id="secondary-opacity" min="0" max="1" step="0.1" value="0.5">
+                            <span id="opacity-value">0.5</span>
+                        </div>
+                    </div>
+
+                    <div class="preview-icons">
+                        <div class="icon-item" id="interactive-star">
+                            <svg class="icon icon-xl">
+                                <use href="#icon-star-dynamic"></use>
+                            </svg>
+                            <span>交互式星星</span>
+                        </div>
+
+                        <div class="icon-item" id="interactive-mail">
+                            <svg class="icon icon-xl">
+                                <use href="#icon-mail-dynamic"></use>
+                            </svg>
+                            <span>交互式邮件</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-example">
+                <h3>动态颜色图标代码示例</h3>
+                <pre><code>&lt;!-- 动态颜色多路径图标定义 --&gt;
+&lt;symbol id="icon-star-dynamic" viewBox="0 0 24 24"&gt;
+    &lt;!-- 主体使用 currentColor --&gt;
+    &lt;path d="..." fill="currentColor"/&gt;
+    &lt;!-- 次要部分使用 CSS 变量 --&gt;
+    &lt;path d="..." fill="var(--icon-secondary-color, rgba(255,255,255,0.3))"/&gt;
+&lt;/symbol&gt;
+
+&lt;!-- CSS 控制颜色 --&gt;
+.icon-gold {
+    color: #FFD700;
+    --icon-secondary-color: rgba(255,255,255,0.5);
+}
+
+&lt;!-- 使用动态颜色图标 --&gt;
+&lt;svg class="icon icon-gold"&gt;
+    &lt;use href="#icon-star-dynamic"&gt;&lt;/use&gt;
+&lt;/svg&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- 渐变色控制演示 -->
+        <div class="gradient-demo">
+            <h2>渐变色SVG图标控制</h2>
+            <p>使用CSS变量控制SVG图标的渐变色效果，支持线性渐变和径向渐变。</p>
+
+            <!-- 交互式渐变控制 -->
+            <div class="interactive-gradient-demo">
+                <!-- 渐变颜色控制 -->
+                <div class="gradient-controls">
+                    <div class="gradient-control-group">
+                        <h4>线性渐变控制</h4>
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label for="gradient-start">起始颜色:</label>
+                                <input type="color" id="gradient-start" value="#3498db">
+                            </div>
+                            <div class="control-item">
+                                <label for="gradient-end">结束颜色:</label>
+                                <input type="color" id="gradient-end" value="#2980b9">
+                            </div>
+                            <div class="control-item">
+                                <label for="gradient-angle">渐变角度:</label>
+                                <input type="range" id="gradient-angle" min="0" max="360" value="135">
+                                <span id="angle-value">135°</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gradient-control-group">
+                        <h4>径向渐变控制</h4>
+                        <div class="control-row">
+                            <div class="control-item">
+                                <label for="radial-center">中心颜色:</label>
+                                <input type="color" id="radial-center" value="#ffffff">
+                            </div>
+                            <div class="control-item">
+                                <label for="radial-edge">边缘颜色:</label>
+                                <input type="color" id="radial-edge" value="#000000">
+                            </div>
+                            <div class="control-item">
+                                <label for="radial-opacity">中心透明度:</label>
+                                <input type="range" id="radial-opacity" min="0" max="1" step="0.1" value="0.8">
+                                <span id="radial-opacity-value">0.8</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="radial-edge-opacity">边缘透明度:</label>
+                                <input type="range" id="radial-edge-opacity" min="0" max="1" step="0.1" value="0.1">
+                                <span id="radial-edge-opacity-value">0.1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 预设渐变样式 -->
+                <div class="preset-gradients">
+                    <h4>预设渐变样式</h4>
+                    <div class="preset-gradient-buttons">
+                        <button class="preset-gradient-btn" data-start="#3498db" data-end="#2980b9"
+                            data-name="蓝色经典">蓝色经典</button>
+                        <button class="preset-gradient-btn" data-start="#e74c3c" data-end="#c0392b"
+                            data-name="红色激情">红色激情</button>
+                        <button class="preset-gradient-btn" data-start="#f39c12" data-end="#e67e22"
+                            data-name="橙色活力">橙色活力</button>
+                        <button class="preset-gradient-btn" data-start="#2ecc71" data-end="#27ae60"
+                            data-name="绿色清新">绿色清新</button>
+                        <button class="preset-gradient-btn" data-start="#9b59b6" data-end="#8e44ad"
+                            data-name="紫色神秘">紫色神秘</button>
+                        <button class="preset-gradient-btn" data-start="#1abc9c" data-end="#16a085"
+                            data-name="青色现代">青色现代</button>
+                    </div>
+                </div>
+
+                <!-- 渐变图标预览 -->
+                <div class="gradient-preview">
+                    <h4>渐变图标预览</h4>
+                    <div class="preview-gradient-icons">
+                        <div class="icon-item">
+                            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--gradient-start, #3498db)" />
+                                        <stop offset="100%" stop-color="var(--gradient-end, #2980b9)" />
+                                    </linearGradient>
+                                    <linearGradient id="shield-secondary" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%"
+                                            stop-color="var(--gradient-secondary-start, rgba(255,255,255,0.8))" />
+                                        <stop offset="100%"
+                                            stop-color="var(--gradient-secondary-end, rgba(255,255,255,0.3))" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- 盾牌外框 -->
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z"
+                                    fill="url(#shield-gradient)" />
+                                <!-- 盾牌内部装饰 -->
+                                <path d="M12,7L9,10L10.5,11.5L12,10L15,13L16.5,11.5L12,7Z"
+                                    fill="url(#shield-secondary)" />
+                            </svg>
+                            <span>渐变盾牌</span>
+                        </div>
+
+                        <!-- 新增：渐变圆形图标 -->
+                        <div class="icon-item">
+                            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+                                <defs>
+                                    <radialGradient id="circle-radial" cx="50%" cy="50%" r="70%">
+                                        <stop offset="0%" stop-color="var(--gradient-center, #ffffff)"
+                                            stop-opacity="var(--gradient-center-opacity, 0.8)" />
+                                        <stop offset="100%" stop-color="var(--gradient-edge, #000000)"
+                                            stop-opacity="var(--gradient-edge-opacity, 0.1)" />
+                                    </radialGradient>
+                                    <linearGradient id="circle-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--gradient-start, #3498db)" />
+                                        <stop offset="100%" stop-color="var(--gradient-end, #2980b9)" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- 圆形主体使用径向渐变 -->
+                                <circle cx="12" cy="12" r="10" fill="url(#circle-radial)" />
+                                <!-- 圆形内部装饰使用线性渐变 -->
+                                <circle cx="12" cy="12" r="5" fill="url(#circle-gradient)" />
+                            </svg>
+                            <span>渐变圆形</span>
+                        </div>
+
+                        <!-- 新增：渐变铃铛图标 -->
+                        <div class="icon-item">
+                            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="bell-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--gradient-start, #3498db)" />
+                                        <stop offset="100%" stop-color="var(--gradient-end, #2980b9)" />
+                                    </linearGradient>
+                                    <radialGradient id="bell-radial" cx="50%" cy="50%" r="70%">
+                                        <stop offset="0%" stop-color="var(--gradient-center, #ffffff)"
+                                            stop-opacity="var(--gradient-center-opacity, 0.8)" />
+                                        <stop offset="100%" stop-color="var(--gradient-edge, #000000)"
+                                            stop-opacity="var(--gradient-edge-opacity, 0.1)" />
+                                    </radialGradient>
+                                </defs>
+                                <!-- 铃铛主体使用线性渐变 -->
+                                <path
+                                    d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+                                    fill="url(#bell-gradient)" />
+                                <!-- 铃铛内部使用径向渐变 -->
+                                <circle cx="12" cy="11" r="3" fill="url(#bell-radial)" />
+                            </svg>
+                            <span>渐变铃铛</span>
+                        </div>
+
+                        <!-- 新增：渐变气泡图标 -->
+                        <div class="icon-item">
+                            <svg class="icon" width="64" height="64" viewBox="0 0 24 24">
+                                <defs>
+                                    <linearGradient id="bubble-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="var(--gradient-start, #3498db)" />
+                                        <stop offset="100%" stop-color="var(--gradient-end, #2980b9)" />
+                                    </linearGradient>
+                                    <radialGradient id="bubble-radial" cx="50%" cy="50%" r="70%">
+                                        <stop offset="0%" stop-color="var(--gradient-center, #ffffff)"
+                                            stop-opacity="var(--gradient-center-opacity, 0.8)" />
+                                        <stop offset="100%" stop-color="var(--gradient-edge, #000000)"
+                                            stop-opacity="var(--gradient-edge-opacity, 0.1)" />
+                                    </radialGradient>
+                                </defs>
+                                <!-- 气泡主体使用线性渐变 -->
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+                                    fill="url(#bubble-gradient)" />
+                                <!-- 气泡内部使用径向渐变 -->
+                                <circle cx="12" cy="10" r="4" fill="url(#bubble-radial)" />
+                            </svg>
+                            <span>渐变气泡</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代码示例 -->
+        <div class="code-example">
+            <h3>代码示例</h3>
+            <h4>HTML:</h4>
+            <pre><code>&lt;!-- 渐变色定义 --&gt;
+&lt;linearGradient id="gradient-primary" x1="0%" y1="0%" x2="100%" y2="100%"&gt;
+    &lt;stop offset="0%" stop-color="var(--gradient-start, #3498db)" /&gt;
+    &lt;stop offset="100%" stop-color="var(--gradient-end, #2980b9)" /&gt;
+&lt;/linearGradient&gt;
+
+&lt;!-- 使用渐变的图标 --&gt;
+&lt;svg class="icon"&gt;
+    &lt;use href="#icon-star-gradient"&gt;&lt;/use&gt;
+&lt;/svg&gt;</code></pre>
+
+            <h4>CSS:</h4>
+            <pre><code>/* 设置渐变颜色变量 */
+.gradient-icon {
+    --gradient-start: #e74c3c;
+    --gradient-end: #c0392b;
+    --gradient-center: #ffffff;
+    --gradient-center-opacity: 0.8;
+}</code></pre>
+
+            <h4>JavaScript:</h4>
+            <pre><code>// 动态更新渐变颜色
+function updateGradientColors(startColor, endColor) {
+    document.documentElement.style.setProperty('--gradient-start', startColor);
+    document.documentElement.style.setProperty('--gradient-end', endColor);
+}</code></pre>
+        </div>
+    </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
