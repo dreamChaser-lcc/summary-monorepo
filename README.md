@@ -352,3 +352,132 @@ coverage
   "prettier.configPath": ".prettierrc.js",
 }
 ```
+
+## 使用Volta 管理node版本 
+
+Volta 是一个 JavaScript 工具链管理器，可以帮助你管理 Node.js、npm、yarn 等工具的版本。
+
+### 安装 Volta
+
+#### Windows
+```bash下载安装包
+# 访问 https://volta.sh/ 下载 Windows 安装包
+```
+
+### 基本使用命令
+
+#### 安装和管理 Node.js 版本
+```bash
+# 安装最新的 LTS 版本
+volta install node
+
+# 安装指定版本的 Node.js
+volta install node@18.17.0
+volta install node@20.5.0
+
+# 查看已安装的 Node.js 版本
+volta list node
+
+# 设置全局默认 Node.js 版本
+volta install node@18.17.0
+```
+
+#### 管理包管理器
+```bash
+# 安装 npm
+volta install npm
+
+# 安装指定版本的 npm
+volta install npm@9.8.0
+
+# 安装 yarn
+volta install yarn
+
+# 安装 pnpm
+volta install pnpm
+```
+
+#### 项目级别的工具版本管理
+```bash
+# 为当前项目固定 Node.js 版本
+volta pin node@18.17.0
+
+# 为当前项目固定 npm 版本
+volta pin npm@9.8.0
+
+# 为当前项目固定 yarn 版本
+volta pin yarn@1.22.19
+
+# 为当前项目固定 pnpm 版本
+volta pin pnpm@8.6.0
+```
+
+#### 查看和管理工具
+```bash
+# 查看当前使用的工具版本
+volta list
+
+# 查看所有已安装的工具
+volta list all
+
+# 查看特定工具的版本
+volta list node
+volta list npm
+volta list yarn
+
+# 查看当前项目的工具配置
+volta which node
+volta which npm
+```
+
+#### 运行特定版本的工具
+```bash
+# 使用特定版本的 Node.js 运行脚本
+volta run --node 16.20.0 -- node script.js
+
+# 使用特定版本的 npm
+volta run --npm 8.19.0 -- npm install
+```
+
+### 项目配置
+
+当你使用 `volta pin` 命令时，Volta 会在项目的 `package.json` 中添加 `volta` 字段：
+
+```json
+{
+  "name": "my-project",
+  "volta": {
+    "node": "18.17.0",
+    "npm": "9.8.0"
+  }
+}
+```
+
+### 优势
+
+1. **自动切换**: 进入项目目录时自动切换到项目指定的工具版本
+2. **团队协作**: 团队成员使用相同的工具版本，避免环境差异
+3. **简单易用**: 无需手动管理多个版本的工具
+4. **跨平台**: 支持 Windows、macOS 和 Linux
+5. **快速**: 工具切换速度快，不影响开发效率
+
+### 常用工作流
+
+```bash
+# 1. 安装 Volta
+curl https://get.volta.sh | bash
+
+# 2. 安装 Node.js 和包管理器
+volta install node@18.17.0
+volta install pnpm@8.6.0
+
+# 3. 在项目中固定版本
+cd my-project
+volta pin node@18.17.0
+
+# 4. 团队成员克隆项目后，Volta 会自动使用正确的版本
+git clone <project-url>
+cd project
+# Volta 自动切换到 package.json 中指定的版本
+pnpm install
+```
