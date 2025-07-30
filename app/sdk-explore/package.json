@@ -1,0 +1,39 @@
+{
+  "name": "sdk-explore",
+  "version": "1.0.0",
+  "description": "sdk输入各种模块化对比",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm tsc --noEmit && pnpm rollup -c rollup.config.mjs",
+    "build:esbuild": "pnpm tsc --noEmit && pnpm rollup -c rollup.config.mjs --use-esbuild=true",
+    "build:typescript": "pnpm tsc --noEmit && pnpm rollup -c rollup.config.mjs --use-esbuild=false",
+    "build:dev": "pnpm tsc --noEmit && pnpm rollup -c rollup.config.mjs --use-esbuild=true --throw-on-error=false",
+    "build:prod": "pnpm tsc --noEmit && pnpm rollup -c rollup.config.mjs --use-esbuild=true --throw-on-error=true"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.4",
+    "axios": "^1.11.0",
+    "rollup-plugin-dts": "^6.2.1",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "rollup-plugin-node-externals": "^8.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@types/node": "^22.16.5",
+    "esbuild": "^0.25.8",
+    "rollup": "^4.46.1",
+    "tslib": "^2.8.1"
+  }
+}
