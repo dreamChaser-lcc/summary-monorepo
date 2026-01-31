@@ -1,0 +1,10 @@
+{
+  "name": "wasm-math-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WebAssembly 演示：Rust 数学计算（阶乘与矩阵乘法）",
+  "scripts": {
+    "build": "powershell -ExecutionPolicy Bypass ./build.ps1 || bash ./build.sh"
+  }
+}
+

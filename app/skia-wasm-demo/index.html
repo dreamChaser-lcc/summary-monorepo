@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Skia + WebAssembly 大数据渲染 Demo</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background: #0f1217; color: #e6e6e6; }
+      header { padding: 16px 20px; border-bottom: 1px solid #222; }
+      main { display: grid; grid-template-columns: 360px 1fr; gap: 0; min-height: calc(100vh - 60px); }
+      .panel { border-right: 1px solid #222; padding: 16px 20px; }
+      .panel h2 { margin: 0 0 12px; font-size: 16px; }
+      .panel .row { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+      .panel input[type="range"] { width: 160px; }
+      .panel input[type="number"] { width: 100px; }
+      .panel button { padding: 8px 12px; background: #2b313c; color: #fff; border: 1px solid #3a4150; border-radius: 6px; cursor: pointer; }
+      .panel button:hover { background: #3a4150; }
+      .stats { font-size: 12px; opacity: 0.9; white-space: pre-line; }
+      .canvas-wrap { display: grid; place-items: center; background: #0b0e13; }
+      #skCanvas { width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Skia(CanvasKit) + WebAssembly 大量数据渲染优化示例</strong>
+    </header>
+    <main>
+      <section class="panel">
+        <h2>参数</h2>
+        <div class="row">
+          <label>行数 (Rows)</label>
+          <input id="rowsRange" type="range" min="100" max="50000" step="100" value="1000" />
+          <input id="rowsInput" type="number" min="100" max="50000" step="100" value="1000" />
+        </div>
+        <div class="row">
+          <label>列数 (Cols)</label>
+          <input id="colsRange" type="range" min="10" max="200" step="10" value="50" />
+          <input id="colsInput" type="number" min="10" max="200" step="10" value="50" />
+        </div>
+        <div class="row">
+          <label>单元格高度</label>
+          <input id="heightRange" type="range" min="10" max="50" step="1" value="20" />
+          <input id="heightInput" type="number" min="10" max="50" step="1" value="20" />
+        </div>
+        <div class="row">
+          <button id="btnNaive">逐格绘制（基线）</button>
+          <button id="btnVertices">批量 Vertices（优化）</button>
+          <button id="btnClear">清空</button>
+        </div>
+        <div class="row">
+          <label><input id="useWorker" type="checkbox" checked /> 使用 Worker 预处理</label>
+        </div>
+        <div class="stats" id="stats">状态：初始化中...</div>
+        <p class="stats">
+          说明：逐格绘制会产生大量 JS→WASM 调用；Vertices 将每个单元格拆成三角形一次批量提交，减少跨边界开销并更利于 GPU。
+        </p>
+      </section>
+      <section class="canvas-wrap">
+        <canvas id="skCanvas" width="1280" height="720"></canvas>
+      </section>
+    </main>
+    <script src="https://unpkg.com/canvaskit-wasm@0.39.1/bin/canvaskit.js"></script>
+    <script src="./main.js"></script>
+  </body>
+  </html>
