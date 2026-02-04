@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics SDK Demo</title>
+</head>
+<body>
+    <h1>Analytics SDK Demo</h1>
+    <p>Check console for tracking logs.</p>
+    
+    <button id="btn-click">Track Custom Click</button>
+    <button id="btn-hash">Change Hash (SPA Nav)</button>
+
+    <div style="margin-top: 20px; border: 1px solid #ccc; padding: 10px;">
+        <h3>Declarative Tracking Demo</h3>
+        <!-- Click Tracking -->
+        <button class="on-click" data-args='{"promo_id": "summer_sale"}'>
+            Auto Track Click (.on-click)
+        </button>
+
+        <!-- Visibility Tracking (Scroll down to see) -->
+        <div style="height: 1200px; background: linear-gradient(to bottom, #f0f0f0, #ccc);">
+            Scroll down for visibility tracking...
+        </div>
+        <div class="on-visible" data-args='{"banner_id": "footer_ad"}' 
+             style="height: 100px; background: #ff4757; color: white; display: flex; align-items: center; justify-content: center;">
+            Auto Track Visibility (.on-visible)
+        </div>
+    </div>
+    
+    <!-- Load compiled SDK -->
+    <script src="/dist/index.js"></script>
+    <script>
+        // Init SDK
+        const analytics = new AnalyticsSDK({
+            reportUrl: 'https://httpbin.org/post', // Mock endpoint
+            appId: 'demo-app-001',
+            debug: true,
+            autoTrack: true,
+            autoClick: true // Enable full auto track
+        });
+
+        document.getElementById('btn-click').addEventListener('click', () => {
+            analytics.track('button_click', { id: 'btn-click', text: 'Track Custom Click' });
+        });
+
+        document.getElementById('btn-hash').addEventListener('click', () => {
+            window.location.hash = '#new-section-' + Math.random().toString(36).substr(2, 5);
+        });
+    </script>
+</body>
+</html>

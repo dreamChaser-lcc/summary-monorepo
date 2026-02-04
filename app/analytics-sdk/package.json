@@ -1,0 +1,25 @@
+{
+  "name": "@my-org/analytics-sdk",
+  "version": "1.0.0",
+  "description": "A lightweight frontend analytics SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "serve": "serve ."
+  },
+  "keywords": [
+    "analytics",
+    "tracking",
+    "sdk"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.0.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
+  }
+}
