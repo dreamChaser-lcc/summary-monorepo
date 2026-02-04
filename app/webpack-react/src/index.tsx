@@ -13,6 +13,9 @@ import {
   } from "react-router-dom";
 import RemQrCode from '@/rem-transform-page/qr-code';
 import TestCommonUtils from '@/rem-transform-page/test-common-utils';
+import ConcurrentDemo from '@/concurrent-demo';
+import DeferredValueDemo from '@/concurrent-demo/demos/DeferredValueDemo';
+import SuspenseDemo from '@/concurrent-demo/demos/SuspenseDemo';
 import App from '@/app';
 
 // 路由配置
@@ -30,6 +33,18 @@ const routers:RouteObject[] = [
           path: "rem",
           index: true,
           element:<RemQrCode/>
+        },
+        {
+          path: "concurrent",
+          element:<ConcurrentDemo/>
+        },
+        {
+          path: "deferred",
+          element:<DeferredValueDemo/>
+        },
+        {
+          path: "suspense",
+          element:<SuspenseDemo/>
         },
         {
           path: "rem-test-common-utils",

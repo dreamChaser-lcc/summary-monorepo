@@ -13,26 +13,68 @@
     background-color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center; // 去掉居中，因为需要支持滚动
     border-bottom: 1px solid #c3c3c3;
-    position: absolute;
+    position: absolute; // 保持原有定位
     width: 100%;
     z-index: 1;
-    .tab-item{
-      position: relative;
-      z-index: 99;
-      flex: 1;
-      font-size: 24px;
-      text-align: center;
-      padding: 12px;
+    overflow: hidden; // 防止箭头或内容溢出
+
+    // 新增：箭头样式
+    .nav-arrow {
+      flex-shrink: 0;
+      width: 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      &.active{
-        background-color: #686f79;
-        color: #fff;
+      font-weight: bold;
+      color: #666;
+      background-color: #fff;
+      z-index: 100;
+      
+      &:hover {
+        background-color: #f5f5f5;
+        color: #333;
       }
     }
-    .tab-item+.tab-item{
-      border-left: 1px solid #c3c3c3;
+
+    // 新增：滚动容器样式
+    .tab-nav-scroll {
+      flex: 1;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab-item{
+        position: relative;
+        z-index: 99;
+        // flex: 1; // 去掉均分，改为内容自适应或固定内边距
+        flex-shrink: 0; // 关键：防止被压缩
+        font-size: 24px;
+        text-align: center;
+        padding: 12px 20px; // 稍微增加横向 padding
+        cursor: pointer;
+        white-space: nowrap; // 防止换行
+        
+        &.active{
+          background-color: #686f79;
+          color: #fff;
+        }
+      }
+      
+      // 保持原有的分割线逻辑
+      .tab-item+.tab-item{
+        border-left: 1px solid #c3c3c3;
+      }
     }
   }
 }
