@@ -16,6 +16,7 @@ import TestCommonUtils from '@/rem-transform-page/test-common-utils';
 import ConcurrentDemo from '@/concurrent-demo';
 import DeferredValueDemo from '@/concurrent-demo/demos/DeferredValueDemo';
 import SuspenseDemo from '@/concurrent-demo/demos/SuspenseDemo';
+import TaskApp from '@/use-reducer-context-demo';
 import App from '@/app';
 
 // 路由配置
@@ -33,6 +34,10 @@ const routers:RouteObject[] = [
           path: "rem",
           index: true,
           element:<RemQrCode/>
+        },
+        {
+          path: "use-reducer-demo",
+          element:<TaskApp/>
         },
         {
           path: "concurrent",

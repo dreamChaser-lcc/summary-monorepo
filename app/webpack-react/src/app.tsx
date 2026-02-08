@@ -12,6 +12,7 @@ const App: FC = () => {
 
   const tabList = [
     { link: '/rem', name: 'rem适配' },
+    { link: '/use-reducer-demo', name: 'Context优化' },
     { link: '/concurrent', name: '并发渲染' },
     { link: '/deferred', name: 'DeferredValue' },
     { link: '/suspense', name: 'Suspense' },
