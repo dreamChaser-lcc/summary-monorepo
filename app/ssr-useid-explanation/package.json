@@ -1,0 +1,34 @@
+{
+  "name": "ssr-useid-explanation",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/package-standalone.js",
+    "package": "node scripts/package-standalone.js",
+    "start:dist": "node dist/start.js",
+    "pm2:start": "pm2 start dist/start.js --name ssr-useid-app --max-memory-restart 500M",
+    "pm2:cluster": "pm2 start dist/start.js --name ssr-useid-app -i max",
+    "pm2:monitor": "pm2 monit",
+    "pm2:logs": "pm2 logs ssr-useid-app",
+    "pm2:stop": "pm2 delete ssr-useid-app",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.1.6",
+    "pm2": "^6.0.14",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
