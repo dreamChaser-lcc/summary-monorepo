@@ -89,9 +89,23 @@ export class WebSocketClient {
   }
 
   /**
+   * 获取原生 readyState
+   * 0: CONNECTING, 1: OPEN, 2: CLOSING, 3: CLOSED
+   */
+  get readyState(): number {
+    return this.ws ? this.ws.readyState : WebSocket.CLOSED
+  }
+
+  /**
    * 连接 WebSocket
    */
   async connect(): Promise<void> {
+    // 如果当前已经是连接状态，直接返回
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.log('WebSocket 已经是连接状态')
+      return
+    }
+
     return new Promise((resolve, reject) => {
       try {
         this.log('开始连接 WebSocket:', this.config.url)
@@ -168,7 +182,10 @@ export class WebSocketClient {
     }
 
     return new Promise((resolve, reject) => {
-      if (this.state !== WSConnectionState.CONNECTED) {
+      // 优先使用原生 readyState 判断连接是否可用
+      const isConnected = this.ws?.readyState === WebSocket.OPEN && this.state === WSConnectionState.CONNECTED
+      
+      if (!isConnected) {
         if (this.config.enableQueue) {
           this.log('连接未就绪，消息加入队列:', message.id)
           this.messageQueue.push(message)
@@ -213,7 +230,7 @@ export class WebSocketClient {
       timestamp: Date.now()
     }
 
-    if (this.state !== WSConnectionState.CONNECTED) {
+    if (this.ws?.readyState !== WebSocket.OPEN || this.state !== WSConnectionState.CONNECTED) {
       if (this.config.enableQueue) {
         this.messageQueue.push(message)
         return
