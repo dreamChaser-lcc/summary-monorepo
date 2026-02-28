@@ -5,6 +5,7 @@ const { getCssLoaderConfig } = require("./loader.common.utils");
 const { DllReferencePlugin } = require("webpack");
 // const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin'); // 这个插件影响打包速度，还是不用了
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackLifecyclePlugin = require('./WebpackLifecyclePlugin');
 
 const fs = require('fs');
 
@@ -47,6 +48,13 @@ const devConfig = {
               // 会关闭构建过程类型检查
               transpileOnly: true,
             },
+          },
+          // 注入自定义 Loader
+          {
+            loader: path.resolve(__dirname, './MyCustomLoader.js'),
+            options: {
+              author: 'LCC', // 传递给 loader 的参数
+            }
           }
         ],
       },
@@ -85,6 +93,7 @@ const devConfig = {
     port: 9000,
   },
   plugins:[
+    new WebpackLifecyclePlugin(),
     new DllReferencePlugin({
       // context: __dirname,
 			manifest: path.resolve(__dirname, '../dll/vendor.manifest.json'),

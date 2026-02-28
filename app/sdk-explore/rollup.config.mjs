@@ -2,6 +2,7 @@ import externals from 'rollup-plugin-node-externals'
 import dts from 'rollup-plugin-dts'
 import esbuild, { minify } from 'rollup-plugin-esbuild'
 import typescript from '@rollup/plugin-typescript'
+import myRollupPlugin from './myRollupPlugin.js'
 
 // 从命令行参数获取配置
 const args = process.argv.slice(2)
@@ -65,6 +66,7 @@ const config = [
     },
     // external: ['axios'], // 明确指定 axios 为外部依赖 externals()也会剔除的
     plugins: [
+      myRollupPlugin({ author: 'LCC' }),
       externals(),  
       useEsbuild ? esbuild() : typescript(
         {

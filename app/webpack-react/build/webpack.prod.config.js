@@ -6,6 +6,7 @@ const baseConfig = require('./webpack.base.config');
 const os = require('os');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackLifecyclePlugin = require('./WebpackLifecyclePlugin');
 const { getCssLoaderConfig } = require("./loader.common.utils");
 
 /**
@@ -155,6 +156,7 @@ const prodConfig = {
     maxAssetSize: 1024 * 1024,  // 打包后生成文件大于1MB提示
   },
   plugins:[
+    new WebpackLifecyclePlugin(),
     new MiniCssExtractPlugin({
       filename: `css/[name].[contenthash:10].css`,
     }),
