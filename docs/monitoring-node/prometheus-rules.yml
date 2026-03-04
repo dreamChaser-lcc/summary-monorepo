@@ -1,0 +1,52 @@
+groups:
+  - name: node-service-availability
+    rules:
+      # 5xx 比例超过 2% 持续 5 分钟
+      - alert: High5xxRate
+        expr: >
+          sum(rate(http_requests_total{status=~"5.."}[5m])) 
+          / clamp_min(sum(rate(http_requests_total[5m])), 1) > 0.02
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "5xx 比例过高"
+          description: "服务 {{ $labels.service }} 5xx 比例 5m 内 > 2%"
+
+      # 实例重启异常（示例，需接入 process_start_time_seconds 或 exporter 指标）
+      - alert: InstanceFrequentRestarts
+        expr: >
+          changes(process_start_time_seconds[10m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "实例出现重启"
+          description: "实例在 10 分钟内发生重启"
+
+  - name: node-service-performance
+    rules:
+      # P99 时延超过 1s 持续 5 分钟
+      - alert: HighLatencyP99
+        expr: >
+          histogram_quantile(0.99, sum(rate(http_server_duration_seconds_bucket[5m])) by (le))
+          > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "P99 时延过高"
+          description: "服务 {{ $labels.service }} P99 > 1s"
+
+  - name: node-service-resources
+    rules:
+      # 内存 RSS 高占用（示例，需 exporter 提供相应指标）
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes / (1024*1024*1024) > 1 # >1GB
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "内存占用过高"
+          description: "进程内存占用持续超过 1GB"
+
