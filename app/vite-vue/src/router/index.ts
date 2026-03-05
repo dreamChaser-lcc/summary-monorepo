@@ -70,6 +70,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/view/vue-api-usage/index.vue'),
     meta: { title: 'vue模式api使用' },
   },
+  {
+    path: '/virtual-scroll',
+    name: 'virtual-scroll',
+    component: () => import('@/view/virtual-scroll/index.vue'),
+    meta: { title: '虚拟滚动原理实现' },
+  },
 ];
 
 export const router = createRouter({
