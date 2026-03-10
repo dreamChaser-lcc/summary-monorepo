@@ -74,7 +74,19 @@ export const routes: RouteRecordRaw[] = [
     path: '/virtual-scroll',
     name: 'virtual-scroll',
     component: () => import('@/view/virtual-scroll/index.vue'),
-    meta: { title: '虚拟滚动原理实现' },
+    meta: { title: '虚拟滚动原理实现(简易版 快速拉动会白屏)' },
+  },
+  {
+    path: '/virtua-demo',
+    name: 'virtua-demo',
+    component: () => import('@/view/virtua-demo/index.vue'),
+    meta: { title: 'virtua库虚拟列表demo' },
+  },
+  {
+    path: '/virtual-scroll-virtua',
+    name: 'virtual-scroll-virtua',
+    component: () => import('@/components/virtual-scroll-virtua/index.vue'),
+    meta: { title: 'Virtua原理重写版' },
   },
 ];
 

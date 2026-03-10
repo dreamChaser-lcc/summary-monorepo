@@ -9,7 +9,7 @@ interface Item {
 // 1. 基础配置
 const ITEM_HEIGHT = 50; // 每个项目固定高度
 const VISIBLE_COUNT = 10; // 可视区域显示的项目数量
-const BUFFER_COUNT = 5; // 上下缓冲的项目数量
+const BUFFER_COUNT = 20; // 上下缓冲的项目数量
 
 // 模拟 10 万条数据
 const allItems = ref<Item[]>(
@@ -50,17 +50,37 @@ const visibleItems = computed(() => {
 const offset = computed(() => startIndex.value * ITEM_HEIGHT);
 
 // 7. 处理滚动事件
+let rafId: number | null = null;
+// 标记是否正在快速滚动
+const isScrollingFast = ref(false);
+let fastScrollTimer: any = null;
+
 const onScroll = () => {
-  if (containerRef.value) {
-    scrollTop.value = containerRef.value.scrollTop;
-  }
+  if (!containerRef.value) return;
+
+  // 1. 处理快速滚动状态
+  isScrollingFast.value = true;
+  if (fastScrollTimer) clearTimeout(fastScrollTimer);
+  // 停止滚动 200ms 后，认为快速滚动结束，恢复正常渲染
+  fastScrollTimer = setTimeout(() => {
+    isScrollingFast.value = false;
+  }, 200);
+
+  // 2. rAF 节流更新 scrollTop
+  // 如果已经在等待下一帧，就不要再触发了（节流）
+  if (rafId) return;
+
+  rafId = requestAnimationFrame(() => {
+    scrollTop.value = containerRef.value!.scrollTop;
+    rafId = null; // 重置
+  });
 };
 </script>
 
 <template>
   <div class="virtual-scroll-demo">
     <h3>虚拟滚动 Demo (100,000 条数据)</h3>
-    <p>当前渲染 DOM 数量: {{ visibleItems.length }} (10 + 2*5 缓冲区)</p>
+    <p>当前渲染 DOM 数量: {{ visibleItems.length }} (10 + 2*20 缓冲区)</p>
     
     <!-- 外部容器：固定高度，负责产生滚动条 -->
     <div 
@@ -80,7 +100,16 @@ const onScroll = () => {
           class="list-item"
           :style="{ height: `${ITEM_HEIGHT}px`, lineHeight: `${ITEM_HEIGHT}px` }"
         >
-          {{ item.text }}
+          <!-- 快速滚动时显示骨架屏 -->
+          <template v-if="isScrollingFast">
+            <div class="skeleton-item">
+              <div class="skeleton-text"></div>
+            </div>
+          </template>
+          <!-- 正常显示内容 -->
+          <template v-else>
+            {{ item.text }}
+          </template>
         </div>
       </div>
     </div>
@@ -114,6 +143,8 @@ const onScroll = () => {
   top: 0;
   left: 0;
   right: 0;
+  /* 开启硬件加速 */
+  will-change: transform;
 }
 
 .list-item {
@@ -121,9 +152,33 @@ const onScroll = () => {
   border-bottom: 1px solid #eee;
   box-sizing: border-box;
   background: white;
+  display: flex;
+  align-items: center;
 }
 
 .list-item:hover {
   background: #f0f0f0;
+}
+
+/* 骨架屏样式 */
+.skeleton-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.skeleton-text {
+  width: 60%;
+  height: 20px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 </style>

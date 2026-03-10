@@ -343,6 +343,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3(ts-node@10.9.2(@swc/core@1.4.17(@swc/helpers@0.5.15))(@types/node@22.19.7)(typescript@5.4.3))
+      virtua:
+        specifier: ^0.48.6
+        version: 0.48.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vue@3.4.21(typescript@5.4.3))
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.3)
@@ -10259,6 +10262,26 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+
+  virtua@0.48.6:
+    resolution: {integrity: sha512-Cl4uMvMV5c9RuOy9zhkFMYwx/V4YLBMYLRSWkO8J46opQZ3P7KMq0CqCVOOAKUckjl/r//D2jWTBGYWzmgtzrQ==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+      solid-js: '>=1.0'
+      svelte: '>=5.0'
+      vue: '>=3.2'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
 
   vite@5.2.6:
     resolution: {integrity: sha512-FPtnxFlSIKYjZ2eosBQamz4CbyrTizbZ3hnGJlh/wMtCrlp1Hah6AzBLjGI5I2urTfNnpovpHdrL6YRuBOPnCA==}
@@ -22991,6 +23014,12 @@ snapshots:
       convert-source-map: 2.0.0
 
   vary@1.1.2: {}
+
+  virtua@0.48.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vue@3.4.21(typescript@5.4.3)):
+    optionalDependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+      vue: 3.4.21(typescript@5.4.3)
 
   vite@5.2.6(@types/node@22.19.7)(less@4.2.0)(lightningcss@1.31.1)(sass@1.77.4)(terser@5.46.0):
     dependencies:
